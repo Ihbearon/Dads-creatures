@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DNA Sandbox — Creature Creator | Real Biology Engine</title>
+  <meta name="description" content="Edit base pairs and watch real genetic traits change in real time. A scientifically grounded genotype-to-phenotype simulation using published GWAS effect sizes." />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+<!-- Helix background canvas -->
+<canvas id="helix-canvas" aria-hidden="true"></canvas>
+
+<!-- Floating SNP tooltip -->
+<div id="snp-tooltip" role="tooltip" aria-live="polite"></div>
+
+<!-- Mutation flash notification -->
+<div id="mutation-flash" role="status" aria-live="polite"></div>
+
+<div class="app-wrapper">
+
+  <!-- ── Header ─────────────────────────────────────────────────────────── -->
+  <header class="app-header">
+    <div class="header-brand">
+      <div class="brand-icon">🧬</div>
+      <div>
+        <div class="brand-title">DNA Sandbox</div>
+        <div class="brand-subtitle">Real Biology Engine · Creature Creator</div>
+      </div>
+    </div>
+
+    <div class="org-switcher" role="group" aria-label="Organism selector">
+      <button class="org-btn active" id="btn-plant" data-organism="plant">
+        <span class="org-icon">🌿</span>
+        <span>Grass Plant</span>
+      </button>
+      <button class="org-btn" id="btn-animal" data-organism="animal">
+        <span class="org-icon">🐑</span>
+        <span>Soay Sheep</span>
+      </button>
+    </div>
+
+    <div id="snp-count-badge" aria-live="polite">Loading…</div>
+  </header>
+
+  <!-- ── Main grid ──────────────────────────────────────────────────────── -->
+  <main class="main-grid">
+
+    <!-- Left column: sequence editor + panels -->
+    <div class="left-col">
+
+      <!-- Sequence Editor -->
+      <section class="glass-card seq-editor-card" aria-labelledby="seq-editor-title">
+        <div class="card-header">
+          <h1 class="card-title" id="seq-editor-title">
+            <span class="card-title-dot"></span>
+            Sequence Editor
+          </h1>
+          <span style="font-size:11px;color:var(--text-muted)">A/T/G/C only • SNP sites highlighted</span>
+        </div>
+        <div class="card-body">
+          <div class="seq-textarea-wrap">
+            <textarea
+              id="seq-input"
+              aria-label="DNA sequence input — type A, T, G, or C"
+              placeholder="Type or paste a DNA sequence: ATGCCCGTAGCT…"
+              spellcheck="false"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="characters"
+            ></textarea>
+          </div>
+
+          <!-- Mutation toolbar -->
+          <div class="mutation-toolbar">
+            <label>Mutate:</label>
+            <button class="mut-btn" id="btn-random-mut" data-mutate="random"
+                    title="Inject a random point mutation">⚡ Random mutation</button>
+            <button class="mut-btn highlight" id="btn-snp-alt" data-mutate="snp-alt"
+                    title="Flip a random SNP site to its alt allele">🎲 Random SNP alt</button>
+            <button class="mut-btn highlight" id="btn-all-alt" data-mutate="all-alt"
+                    title="Set ALL SNP sites to their alt alleles">💥 Max all traits</button>
+            <button class="mut-btn danger" id="btn-reset" data-mutate="reset"
+                    title="Reset to reference sequence">↺ Reset</button>
+          </div>
+
+          <!-- Colorized sequence display -->
+          <div class="seq-display-wrap" aria-label="Colorized base view with SNP hotspots">
+            <div id="seq-display" role="region"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Codon Strip -->
+      <section class="glass-card" aria-labelledby="codon-strip-title">
+        <div class="card-header">
+          <h2 class="card-title" id="codon-strip-title">
+            <span class="card-title-dot" style="background:var(--amber);box-shadow:0 0 8px var(--amber)"></span>
+            Codon Translation
+          </h2>
+          <span style="font-size:11px;color:var(--text-muted)">NCBI Standard Genetic Code · Table 1</span>
+        </div>
+        <div class="codon-strip-wrap">
+          <div id="codon-strip" role="list" aria-label="Codon to amino acid translation"></div>
+        </div>
+      </section>
+
+      <!-- Gene Finder -->
+      <section class="glass-card" aria-labelledby="gene-finder-title">
+        <div class="card-header">
+          <h2 class="card-title" id="gene-finder-title">
+            <span class="card-title-dot" style="background:var(--amber);box-shadow:0 0 8px var(--amber)"></span>
+            ORF / Gene Finder
+          </h2>
+          <span style="font-size:11px;color:var(--text-muted)">ATG → stop codon · all 3 frames</span>
+        </div>
+        <div class="gene-panel-wrap">
+          <div id="gene-list" role="list" aria-label="Open reading frames detected in sequence"></div>
+        </div>
+      </section>
+
+    </div><!-- /left-col -->
+
+    <!-- Right column: organism + traits + SNP inspector -->
+    <div class="right-col">
+
+      <!-- Organism renderer card -->
+      <section class="glass-card" id="organism-card" aria-labelledby="organism-card-title">
+        <div class="organism-info">
+          <h2 id="organism-name">Grass Plant</h2>
+          <div class="sci-name" id="organism-sci">Poaceae (theoretical)</div>
+          <div class="org-desc" id="organism-desc">Loading organism data…</div>
+        </div>
+        <div class="svg-canvas-wrap">
+          <svg id="organism-svg" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg"
+               role="img" aria-label="Live organism phenotype render based on your DNA sequence">
+          </svg>
+        </div>
+      </section>
+
+      <!-- Trait scoreboard -->
+      <section class="glass-card" aria-labelledby="trait-board-title">
+        <div class="card-header">
+          <h2 class="card-title" id="trait-board-title">
+            <span class="card-title-dot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></span>
+            Polygenic Trait Scores
+          </h2>
+        </div>
+        <div class="trait-board-wrap">
+          <div id="trait-board" role="list" aria-label="Trait scores computed from polygenic scoring"></div>
+        </div>
+      </section>
+
+      <!-- SNP Inspector -->
+      <section class="glass-card" aria-labelledby="snp-inspector-title">
+        <div class="card-header">
+          <h2 class="card-title" id="snp-inspector-title">
+            <span class="card-title-dot" style="background:var(--rose);box-shadow:0 0 8px var(--rose)"></span>
+            SNP Inspector
+          </h2>
+          <span style="font-size:11px;color:var(--text-muted)">Published GWAS variants</span>
+        </div>
+        <div class="snp-panel-wrap">
+          <div id="snp-list" role="list" aria-label="Detected SNPs with effect sizes and citations"></div>
+        </div>
+      </section>
+
+    </div><!-- /right-col -->
+
+  </main><!-- /main-grid -->
+
+  <!-- ── Footer ─────────────────────────────────────────────────────────── -->
+  <footer class="app-footer">
+    <div class="footer-text">
+      SNP effect sizes sourced from peer-reviewed literature:
+      <a href="https://www.ncbi.nlm.nih.gov/snp/" target="_blank">NCBI dbSNP</a> ·
+      <a href="https://www.ebi.ac.uk/gwas/" target="_blank">NHGRI-EBI GWAS Catalog</a> ·
+      <a href="https://doi.org/10.1126/science.1197170" target="_blank">Johnston et al. 2011 (RXFP2 horns)</a> ·
+      <a href="https://doi.org/10.1534/genetics.106.067447" target="_blank">Gratten et al. 2007 (MC1R coat)</a>
+    </div>
+    <div class="footer-badge">Pure HTML/CSS/JS · Zero dependencies</div>
+  </footer>
+
+</div><!-- /app-wrapper -->
+
+<!-- JS modules (load order matters) -->
+<script src="js/codon-table.js"></script>
+<script src="js/gene-parser.js"></script>
+<script src="js/snp-scanner.js"></script>
+<script src="js/polygenic-score.js"></script>
+<script src="js/renderer.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "organisms": {
+    "plant": {
+      "id": "plant",
+      "name": "Grass Plant",
+      "scientificName": "Poaceae (theoretical)",
+      "description": "A grass species with variable pigmentation, height, and leaf morphology controlled by chlorophyll and anthocyanin pathways.",
+      "icon": "🌿",
+      "traits": {
+        "chlorophyll": { "label": "Chlorophyll Content", "unit": "%", "min": 0, "max": 100, "baseline": 65, "icon": "🟢" },
+        "anthocyanin": { "label": "Anthocyanin (Red Pigment)", "unit": "%", "min": 0, "max": 100, "baseline": 15, "icon": "🔴" },
+        "height": { "label": "Plant Height", "unit": "cm", "min": 5, "max": 120, "baseline": 60, "icon": "📏" },
+        "leafWidth": { "label": "Leaf Width", "unit": "mm", "min": 2, "max": 25, "baseline": 10, "icon": "🍃" }
+      },
+      "baseSequence": "ATGCCCGTAGCTAAGCTTGCAATGCGGCTTAAGCATGCAATGCTTGGCAAAGTAGCTTAAGCAGCTTGCAATGCGGCTTAAGCGCATGCAATGCTTGGCAAA"
+    },
+    "animal": {
+      "id": "animal",
+      "name": "Soay Sheep",
+      "scientificName": "Ovis aries (Soay ecotype)",
+      "description": "A primitive domestic sheep from the St Kilda archipelago — a flagship model organism for evolutionary genetics (G2P datasets 00092–00099).",
+      "icon": "🐑",
+      "traits": {
+        "coatColor": { "label": "Coat Darkness", "unit": "%", "min": 0, "max": 100, "baseline": 70, "icon": "🎨" },
+        "spotting": { "label": "White Spotting", "unit": "%", "min": 0, "max": 100, "baseline": 10, "icon": "◻️" },
+        "hornLength": { "label": "Horn Length", "unit": "cm", "min": 0, "max": 80, "baseline": 30, "icon": "🐏" },
+        "bodySize": { "label": "Body Size", "unit": "kg", "min": 15, "max": 45, "baseline": 28, "icon": "⚖️" }
+      },
+      "baseSequence": "ATGCCTGTAGCTAAGCTTGCAATGCGGCTTAAGCATGCAATGCTTGGCAAAGTAGCTTAAGCAGCTTGCAATGCGGCTTAAGCGCATGCAATGCTTGGCAAA"
+    }
+  }
+}
