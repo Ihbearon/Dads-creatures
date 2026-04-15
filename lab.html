@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title id="pageTitle">DNA Lab — Dad's Creatures</title>
+  <meta name="description" content="Mutate DNA sequences and watch creatures change in real-time. Powered by real GWAS data from the G2P genomic repository."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+
+<!-- ── SPECIES BANNER ────────────────────────────────────────────────── -->
+<div id="speciesBanner" style="
+  background:hsl(220,18%,11%);border-bottom:1px solid hsl(220,14%,20%);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.6rem 1.5rem;font-family:'Space Grotesk',system-ui,sans-serif;
+">
+  <a href="index.html" style="color:hsl(170,70%,50%);text-decoration:none;font-size:0.82rem;font-weight:600">
+    ← Species Gallery
+  </a>
+  <div id="bannerName" style="color:hsl(210,25%,85%);font-size:0.88rem;font-weight:600;display:flex;align-items:center;gap:0.5rem">
+    <span id="bannerIcon">🧬</span><span id="bannerText">Loading…</span>
+  </div>
+  <a href="language/index.html" style="color:hsl(170,70%,50%);text-decoration:none;font-size:0.82rem;font-weight:600">
+    GCL Language →
+  </a>
+</div>
+
+<!-- ── MAIN APP ROOT ─────────────────────────────────────────────────── -->
+<div id="app">Loading…</div>
+
+<!-- ── SCRIPTS (original load order + new engines) ───────────────────── -->
+<script src="js/codon-table.js"></script>
+<script src="js/gene-parser.js"></script>
+<script src="js/snp-scanner.js"></script>
+<script src="js/polygenic-score.js"></script>
+<script src="js/creature-builder.js"></script>
+<script src="js/gcl-engine.js"></script>
+<script src="js/renderers/render-insect.js"></script>
+<script src="js/renderers/render-fish.js"></script>
+<script src="js/renderers/render-bird.js"></script>
+<script src="js/renderers/render-reptile.js"></script>
+<script src="js/renderers/render-mammal.js"></script>
+<script src="js/renderers/render-plant.js"></script>
+<script src="js/species-renderer.js"></script>
+<script src="js/renderer.js"></script>
+
+<script>
+/**
+ * lab.html bootstrap:
+ * 1. Read ?species=XXX from URL
+ * 2. Load species-registry.json to get base sequence + trait config
+ * 3. Update SNP registry state and organism config
+ * 4. Mount the existing app.js against this species
+ */
+(function() {
+  const params     = new URLSearchParams(window.location.search);
+  const speciesId  = params.get('species') || 'soay-sheep';
+
+  // Set banner immediately from URL param (before registry load)
+  const ICONS = {
+    'mosquito':'🦟','green-anole':'🦎','blue-crab':'🦀','damselfly':'🪲',
+    'coho-salmon':'🐟','arctic-charr':'🐠','rock-lobster':'🦞',
+    'green-peafowl':'🦚','bighorn-sheep':'🐏','manakin':'🐦',
+    'prairie-falcon':'🦅','soay-sheep':'🐑','cattle':'🐄','camel':'🐪',
+    'labrador':'🐕','goat':'🐐','orange-roughy':'🐡','sorghum':'🌾',
+    'arabidopsis':'🌱','grass-plant':'🌿','creature':'🦎'
+  };
+
+  // Pre-fill banner with URL param species
+  document.getElementById('bannerIcon').textContent = ICONS[speciesId] || '🧬';
+  document.getElementById('bannerText').textContent  = speciesId.replace(/-/g,' ').replace(/\b\w/g, c=>c.toUpperCase());
+
+  // Store selected species ID for app.js to pick up
+  window.__SELECTED_SPECIES = speciesId;
+
+  // Load the species registry, inject organism data, then load app.js
+  fetch('data/species-registry.json')
+    .then(r => r.json())
+    .then(registry => {
+      const spec = registry.species[speciesId];
+      if (spec) {
+        // Update banner with real data
+        document.getElementById('bannerText').textContent  = spec.name;
+        document.getElementById('bannerIcon').textContent  = spec.icon || ICONS[speciesId] || '🧬';
+        document.title = `${spec.name} — DNA Lab`;
+        document.getElementById('pageTitle').textContent = `${spec.name} — DNA Lab`;
+      }
+      // Expose registry globally for app.js and renderers
+      window.__SPECIES_REGISTRY = registry;
+      window.__CURRENT_SPECIES  = spec || null;
+      window.__SPECIES_ID       = speciesId;
+    })
+    .catch(() => {
+      window.__SPECIES_REGISTRY = { species:{} };
+      window.__CURRENT_SPECIES  = null;
+      window.__SPECIES_ID       = speciesId;
+    })
+    .finally(() => {
+      // Now load app.js — it will find window.__SPECIES_ID
+      const s = document.createElement('script');
+      s.src = 'js/app.js';
+      document.body.appendChild(s);
+    });
+})();
+</script>
+</body>
+</html>

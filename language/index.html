@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Genomic Creature Language — Reference</title>
+  <meta name="description" content="Complete reference for the Genomic Creature Language (GCL) — an in-house DNA programming language mapping every codon to a morphogenetic instruction."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" href="../css/gallery.css"/>
+  <style>
+    /* ── Language page extras ─────────────────────────────────────── */
+    .lang-hero { padding: 4rem 2rem 2.5rem; text-align: center; position:relative;z-index:1; }
+    .lang-hero h1 { font-size:clamp(1.8rem,4vw,3rem); font-weight:700; margin-bottom:0.8rem; }
+    .lang-hero h1 em { font-style:normal; color:var(--accent2); }
+    .lang-hero p { color:var(--muted); max-width:580px; margin:0 auto 2rem; }
+
+    .content-wrap { max-width:1200px; margin:0 auto; padding:0 2rem 4rem; position:relative;z-index:1; }
+
+    /* Tabs */
+    .tab-bar { display:flex; gap:0.4rem; flex-wrap:wrap; border-bottom:1px solid var(--border); margin-bottom:2rem; }
+    .tab-btn { padding:0.55rem 1.1rem; font-size:0.85rem; font-weight:600; border:none;
+      background:transparent; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent;
+      transition:all 0.18s; font-family:var(--font); }
+    .tab-btn.active { color:var(--accent); border-bottom-color:var(--accent); }
+    .tab-btn:hover { color:var(--text); }
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
+
+    /* Codon table */
+    .codon-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:0.7rem; }
+    .codon-card { background:var(--card); border:1px solid var(--border); border-radius:var(--r-sm);
+      padding:0.9rem; display:flex; flex-direction:column; gap:0.3rem; cursor:pointer;
+      transition:border-color 0.18s, transform 0.18s; }
+    .codon-card:hover { border-color:var(--accent); transform:translateY(-2px); }
+    .codon-top { display:flex; align-items:center; justify-content:space-between; }
+    .codon-seq { font-family:var(--mono); font-size:1rem; font-weight:700; color:var(--accent); }
+    .codon-aa { font-family:var(--mono); font-size:0.8rem; color:var(--muted); }
+    .codon-morpheme { font-size:0.8rem; font-weight:600; }
+    .codon-note { font-size:0.72rem; color:var(--muted); line-height:1.45; }
+
+    /* Morpheme colors */
+    .m-init      { color:hsl(170,70%,55%); }   .m-segment   { color:hsl(260,70%,72%); }
+    .m-elongate  { color:hsl(85,60%,60%); }    .m-branch    { color:hsl(45,90%,62%); }
+    .m-thicken   { color:hsl(30,70%,62%); }    .m-stiffen   { color:hsl(200,60%,65%); }
+    .m-joint     { color:hsl(160,55%,60%); }   .m-horn      { color:hsl(35,75%,60%); }
+    .m-fin       { color:hsl(195,65%,60%); }   .m-feature   { color:hsl(290,65%,70%); }
+    .m-sensor    { color:hsl(15,70%,65%); }    .m-spine     { color:hsl(70,60%,55%); }
+    .m-ridge     { color:hsl(65,55%,55%); }    .m-claw      { color:hsl(0,65%,60%); }
+    .m-texture   { color:hsl(140,45%,58%); }   .m-stripe    { color:hsl(205,60%,65%); }
+    .m-crosslink { color:hsl(50,70%,62%); }    .m-pigment   { color:hsl(320,55%,65%); }
+    .m-softTissue{ color:hsl(180,50%,62%); }   .m-muscle    { color:hsl(10,65%,60%); }
+    .m-stop      { color:hsl(0,60%,55%);  }
+
+    /* Macro table */
+    .macro-table { width:100%; border-collapse:collapse; }
+    .macro-table th { text-align:left; padding:0.6rem 0.8rem; border-bottom:1px solid var(--border);
+      font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+    .macro-table td { padding:0.65rem 0.8rem; border-bottom:1px solid var(--border); font-size:0.85rem; vertical-align:top; }
+    .macro-table tr:hover td { background:var(--card); }
+    .macro-name { font-family:var(--mono); color:hsl(170,70%,55%); font-weight:700; }
+    .macro-exp  { font-family:var(--mono); color:hsl(260,60%,70%); font-size:0.78rem; word-break:break-all; }
+
+    /* Interactive editor */
+    .gcl-editor-wrap { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+    .editor-panel { background:var(--card); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; }
+    .editor-header { padding:0.65rem 1rem; border-bottom:1px solid var(--border);
+      font-family:var(--mono); font-size:0.72rem; color:var(--muted); display:flex; justify-content:space-between; align-items:center; }
+    #gclInput { width:100%; min-height:220px; padding:1rem; background:hsl(220,20%,9%);
+      color:hsl(170,70%,70%); font-family:var(--mono); font-size:0.82rem; border:none;
+      outline:none; resize:vertical; line-height:1.7; }
+    .compile-btn { padding:0.45rem 1rem; background:var(--accent); color:hsl(220,20%,8%);
+      border:none; border-radius:6px; font-weight:700; cursor:pointer; font-size:0.82rem;
+      font-family:var(--font); transition:background 0.18s; }
+    .compile-btn:hover { background:hsl(170,70%,60%); }
+    #gclOutput { padding:1rem; font-family:var(--mono); font-size:0.78rem; color:var(--text);
+      min-height:220px; white-space:pre-wrap; word-break:break-all; }
+    .gcl-tok-codon   { color:hsl(260,70%,72%); }
+    .gcl-tok-macro   { color:hsl(170,70%,55%); font-weight:700; }
+    .gcl-tok-template{ color:hsl(45,90%,62%); font-weight:700; }
+    .gcl-tok-error   { color:hsl(0,70%,60%); text-decoration:underline wavy; }
+    .gcl-result      { margin-top:0.8rem; padding:0.8rem; background:hsl(220,20%,9%);
+      border-radius:6px; border-left:3px solid var(--accent); }
+
+    /* Body plan templates */
+    .template-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; }
+    .tmpl-card { background:var(--card); border:1px solid var(--border); border-radius:var(--r-sm); padding:1.1rem; }
+    .tmpl-card h3 { font-size:0.92rem; font-weight:600; margin-bottom:0.4rem; color:var(--accent); }
+    .tmpl-card p  { font-size:0.78rem; color:var(--muted); margin-bottom:0.6rem; }
+    .tmpl-code    { font-family:var(--mono); font-size:0.72rem; color:hsl(260,60%,70%);
+      background:hsl(220,20%,9%); padding:0.6rem 0.8rem; border-radius:4px; white-space:pre-wrap; }
+    .tmpl-rules   { margin-top:0.6rem; }
+    .tmpl-rules li{ font-size:0.72rem; color:var(--muted); margin-bottom:0.25rem; padding-left:0.8rem; }
+    .use-tmpl { margin-top:0.7rem; font-size:0.75rem; font-weight:600; color:var(--accent);
+      cursor:pointer; border:none; background:transparent; font-family:var(--font); }
+    .use-tmpl:hover { text-decoration:underline; }
+
+    /* Pattern section */
+    .pattern-big { background:var(--card); border:1px solid var(--border); border-radius:var(--r);
+      padding:1.4rem; margin-bottom:1.2rem; }
+    .pattern-big h3 { font-size:1rem; font-weight:600; margin-bottom:0.5rem; }
+    .pattern-big .gene-badge { font-family:var(--mono); font-size:0.72rem; color:hsl(45,90%,62%);
+      background:hsla(45,90%,62%,0.12); padding:0.15rem 0.5rem; border-radius:4px; }
+    .pattern-big table { width:100%; margin-top:0.8rem; border-collapse:collapse; }
+    .pattern-big td, .pattern-big th {
+      padding:0.45rem 0.65rem; border-bottom:1px solid var(--border); font-size:0.8rem; }
+    .pattern-big th { color:var(--muted); font-size:0.72rem; letter-spacing:0.08em; }
+    .pattern-big td:first-child { font-family:var(--mono); color:hsl(260,70%,72%); }
+
+    @media(max-width:640px) {
+      .gcl-editor-wrap { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="../index.html">🧬 <span>Dad's</span>Creatures</a>
+  <div class="nav-links">
+    <a href="../index.html">Species</a>
+    <a href="../lab.html">DNA Lab</a>
+    <a href="index.html" class="active">GCL Language</a>
+    <a href="https://github.com/Ihbearon/Dads-creatures" target="_blank">GitHub</a>
+    <a href="../lab.html" class="cta">Open Lab →</a>
+  </div>
+</nav>
+
+<section class="lang-hero">
+  <p class="hero-eyebrow">In-House DNA Programming Language · 64 Codons · 25+ Macros</p>
+  <h1>Genomic Creature<br/><em>Language</em> (GCL)</h1>
+  <p>Every codon has a body-building meaning. Write DNA sequences that construct real body plans — grounded in actual molecular biology: HOX genes, Wnt/Notch segmentation, MC1R pigmentation, and RXFP2 androgen pathways.</p>
+</section>
+
+<div class="content-wrap">
+
+  <!-- ── TABS ─────────────────────────────────────────────────────── -->
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="codon-dict">Codon Dictionary</button>
+    <button class="tab-btn" data-tab="macros">Macro Library</button>
+    <button class="tab-btn" data-tab="templates">Body Plan Templates</button>
+    <button class="tab-btn" data-tab="patterns">Cross-Species Patterns</button>
+    <button class="tab-btn" data-tab="playground">GCL Playground</button>
+  </div>
+
+  <!-- ── CODON DICTIONARY ──────────────────────────────────────────── -->
+  <div class="tab-panel active" id="tab-codon-dict">
+    <p style="color:var(--muted);font-size:0.88rem;margin-bottom:1.5rem">
+      All 64 codons mapped to morphogenetic instructions. Synonymous codons (same amino acid, different codon) produce <strong>identical morphemes</strong> — a silent mutation never changes the body plan. Click any card for details.
+    </p>
+    <div class="codon-grid" id="codonGrid"></div>
+  </div>
+
+  <!-- ── MACRO LIBRARY ─────────────────────────────────────────────── -->
+  <div class="tab-panel" id="tab-macros">
+    <p style="color:var(--muted);font-size:0.88rem;margin-bottom:1.5rem">
+      Named shortcuts that expand into codon sequences. Use <code style="color:hsl(170,65%,60%);font-size:0.9em">#MACRO_NAME</code> anywhere in your GCL source. Macros can be combined freely.
+    </p>
+    <table class="macro-table">
+      <thead><tr><th>Macro</th><th>Expands To</th><th>Description</th></tr></thead>
+      <tbody id="macroTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- ── BODY PLAN TEMPLATES ───────────────────────────────────────── -->
+  <div class="tab-panel" id="tab-templates">
+    <p style="color:var(--muted);font-size:0.88rem;margin-bottom:1.5rem">
+      Full body plan starting sequences. Use <code style="color:hsl(45,90%,62%);font-size:0.9em">@TEMPLATE_NAME</code> in the GCL Playground to load a complete body plan, then customize from there.
+    </p>
+    <div class="template-grid" id="templateGrid"></div>
+  </div>
+
+  <!-- ── CROSS-SPECIES PATTERNS ────────────────────────────────────── -->
+  <div class="tab-panel" id="tab-patterns">
+    <p style="color:var(--muted);font-size:0.88rem;margin-bottom:1.5rem">
+      Six universal genetic patterns found across all 20 species. These are the rules HOX genes, developmental signaling pathways, and pigmentation cascades use in real organisms — translated into GCL grammar.
+    </p>
+
+    <div class="pattern-big">
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.4rem">
+        <h3>Pattern 1 — The Segmentation Clock</h3>
+        <span class="gene-badge">Wnt / Notch oscillator</span>
+      </div>
+      <p style="font-size:0.85rem;color:var(--muted)">Number of contiguous <strong>Pro (P)</strong> codons after ATG start determines the number of body segments. Real basis: Wnt and Notch signaling creates a molecular clock in developing embryos that pulses once per segment boundary.</p>
+      <table><thead><tr><th>GCL Sequence</th><th>Organism Example</th><th>Segment Count</th></tr></thead><tbody>
+        <tr><td>ATG CCG CCG CCG</td><td>Mosquito (head/thorax/abdomen)</td><td>3</td></tr>
+        <tr><td>ATG CCG CCG CCG CCG CCG</td><td>Crab (5-segment body)</td><td>5</td></tr>
+        <tr><td>ATG CCG CCG</td><td>Bird (compact torso)</td><td>2</td></tr>
+        <tr><td>ATG CCG</td><td>Fish (single trunk segment)</td><td>1</td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="pattern-big">
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.4rem">
+        <h3>Pattern 2 — Bilateral Symmetry Lock</h3>
+        <span class="gene-badge">Pitx2 / Nodal laterality axis</span>
+      </div>
+      <p style="font-size:0.85rem;color:var(--muted)">Every <strong>Val (V / GTT)</strong> codon produces a bilateral (left+right) pair — never a single appendage. Real basis: Pitx2 and Nodal signaling establish left-right asymmetry; Distal-less (Dll) genes then specify the bilateral appendage bud.</p>
+      <table><thead><tr><th>Val Count</th><th>Appendages Produced</th><th>Example</th></tr></thead><tbody>
+        <tr><td>GTT ×1</td><td>1 limb pair (2 total)</td><td>Snake ancestor (fins only)</td></tr>
+        <tr><td>GTT ×2</td><td>2 limb pairs (4 total)</td><td>All tetrapods (4-limbed animals)</td></tr>
+        <tr><td>GTT ×3</td><td>3 limb pairs (6 total)</td><td>Insects (6 legs)</td></tr>
+        <tr><td>GTT ×4+</td><td>4+ limb pairs (8+ total)</td><td>Crustaceans (multiple walking legs)</td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="pattern-big">
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.4rem">
+        <h3>Pattern 3 — HOX Positional Identity</h3>
+        <span class="gene-badge">HOX homeodomain gene cluster</span>
+      </div>
+      <p style="font-size:0.85rem;color:var(--muted)"><strong>Position in sequence → anatomical region.</strong> The first morphemes after ATG are applied to the HEAD region. Middle morphemes build the TORSO. Last morphemes before STOP become TAIL/POSTERIOR structures. This directly mirrors the real HOX gene anterior-posterior expression gradient.</p>
+      <table><thead><tr><th>Sequence Position</th><th>Anatomy Assigned</th><th>HOX Gene</th></tr></thead><tbody>
+        <tr><td>Morpheme 1–2</td><td>Head (sensory organs, mouthparts, antennae)</td><td>Lab, Dfd, Scr</td></tr>
+        <tr><td>Morpheme 3–(n-2)</td><td>Thorax / Torso (limbs, wings, body)</td><td>Antp, Ubx, abd-A</td></tr>
+        <tr><td>Morpheme (n-1)–n</td><td>Abdomen / Tail (sexual organs, tail)</td><td>Abd-B</td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="pattern-big">
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.4rem">
+        <h3>Pattern 4 — Appendage Identity Rule</h3>
+        <span class="gene-badge">Distal-less (Dll) appendage specifier</span>
+      </div>
+      <p style="font-size:0.85rem;color:var(--muted)">What codon <strong>follows Val</strong> determines what body part grows on that branch. The branch (Val) activates Dll; the <em>next codon's morpheme</em> specifies what Dll builds. This is exactly how selector genes work in real appendage specification.</p>
+      <table><thead><tr><th>GCL Sequence</th><th>Appendage Type</th><th>Real Biology</th></tr></thead><tbody>
+        <tr><td>GTT TTT</td><td>Wing / fin (planar)</td><td>Wing disc; Dpp-induced flat structure</td></tr>
+        <tr><td>GTT AAA</td><td>Claw / talon</td><td>Tip keratinization; BMP4 digit sharpening</td></tr>
+        <tr><td>GTT CGT</td><td>Armed spiked limb</td><td>Weaponized appendage; horn protein deposition</td></tr>
+        <tr><td>GTT AAT</td><td>Flipper / paddle</td><td>Inter-digital webbing; Wnt5b paddlefish fin</td></tr>
+        <tr><td>GTT GGT</td><td>Articulated tentacle</td><td>Flexible multi-joint arm; cephalopod arm model</td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="pattern-big">
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.4rem">
+        <h3>Pattern 5 — Pigmentation Cascade</h3>
+        <span class="gene-badge">MC1R / TYRP1 / ASIP melanin synthesis</span>
+      </div>
+      <p style="font-size:0.85rem;color:var(--muted)">The <strong>sequence of Tyr (Y/TAT) and Thr (T/ACT)</strong> codons determines pigment pattern output. Tyr is the literal melanin precursor (L-DOPA pathway); Thr is a stripe-band activator. This mirrors real MC1R-driven melanin switching.</p>
+      <table><thead><tr><th>GCL Pattern</th><th>Color Output</th><th>Real Pathway</th></tr></thead><tbody>
+        <tr><td>TAT TAT TAT</td><td>Dense dark eumelanin (black/brown)</td><td>MC1R gain-of-function; extension allele</td></tr>
+        <tr><td>ACT TAT ACT TAT</td><td>Striped banding</td><td>Wnt-driven stripe activation alternating</td></tr>
+        <tr><td>TAT GGT TAT GGT</td><td>Irregular spots</td><td>Joint-break distributes pigment discontinuously</td></tr>
+        <tr><td>TAT TGG TAT</td><td>Eyespot (ring around feature)</td><td>optix gene-controlled spot patterning</td></tr>
+        <tr><td>GGT TAT (light)</td><td>Paler coat / hide</td><td>ASIP gain suppressing melanocyte activation</td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="pattern-big">
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.4rem">
+        <h3>Pattern 6 — Androgen Amplifier</h3>
+        <span class="gene-badge">RXFP2 / testosterone receptor axis</span>
+      </div>
+      <p style="font-size:0.85rem;color:var(--muted)"><strong>Arg (R/CGT) codons in the first 30% of the sequence amplify ALL subsequent morphemes</strong>. This models the real RXFP2 androgen receptor found in Bighorn Sheep and Soay Sheep — where it drives not just horn size but overall morphological intensity. The more Arg early in sequence, the more extreme the phenotype.</p>
+      <table><thead><tr><th>Arg Count (early)</th><th>Amplification Effect</th><th>Example Species</th></tr></thead><tbody>
+        <tr><td>0× Arg early</td><td>No amplification — baseline morphemes</td><td>Female Soay Sheep (hornless)</td></tr>
+        <tr><td>2× Arg early</td><td>+50% morpheme intensity</td><td>Male Soay Sheep (short horns)</td></tr>
+        <tr><td>4× Arg early (#BIG_HORN)</td><td>+100% morpheme intensity</td><td>Bighorn Ram (massive curled horns)</td></tr>
+        <tr><td>4× Arg + #CURL_HORN early</td><td>+150% + curl geometry</td><td>Record bighorn (full curl)</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <!-- ── GCL PLAYGROUND ────────────────────────────────────────────── -->
+  <div class="tab-panel" id="tab-playground">
+    <p style="color:var(--muted);font-size:0.88rem;margin-bottom:1.5rem">
+      Write GCL source using codons, <code style="color:hsl(170,65%,60%)">#MACROS</code>, or <code style="color:hsl(45,90%,62%)">@TEMPLATES</code>. Click Compile to expand to a DNA sequence, then open it in the DNA Lab.
+    </p>
+    <div class="gcl-editor-wrap">
+      <div class="editor-panel">
+        <div class="editor-header">
+          <span>// GCL Source</span>
+          <button class="compile-btn" id="compileBtn">Compile →</button>
+        </div>
+        <textarea id="gclInput" spellcheck="false" placeholder="// Write GCL here. Examples:
+ATG CCG CCG GTT GTT #WING_PAIR #DEWLAP TCT TAT TAA
+
+// Or use a template:
+@VERTEBRATE_BIRD
+
+// Or build custom:
+ATG #CARAPACE GTT GTT GTT AAA AAA TAA">ATG CCG CCG GTT GTT #WING_PAIR #DEWLAP TCT TAT TAA</textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-header">
+          <span>// Compiled Output</span>
+          <button class="compile-btn" id="openLabBtn" style="background:var(--accent2);display:none">Open in Lab →</button>
+        </div>
+        <div id="gclOutput">
+          <span style="color:var(--muted)">// Click Compile to expand macros → DNA sequence</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick-insert buttons -->
+    <div style="margin-top:1.5rem">
+      <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.7rem">Quick insert:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem" id="quickInserts"></div>
+    </div>
+  </div>
+
+</div><!-- /content-wrap -->
+
+<footer>
+  <p>GCL v1.0 — Built for <a href="../index.html">Dad's Creatures</a>.
+  Molecular biology references: NCBI codon table 1, Wnt/Notch oscillator, MC1R melanin pathway, HOX anterior-posterior gradient, RXFP2 androgen axis.
+  <a href="https://github.com/Ihbearon/Dads-creatures" target="_blank">GitHub</a></p>
+</footer>
+
+<script src="../js/gcl-engine.js"></script>
+<script>
+(function() {
+  // ── Load GCL dictionary ──────────────────────────────────────────
+  fetch('../data/gcl-dictionary.json')
+    .then(r => r.json())
+    .then(dict => {
+      buildCodonGrid(dict.codons);
+      buildMacroTable(dict.macros);
+      buildTemplateGrid(dict.bodyPlanTemplates);
+    })
+    .catch(() => {
+      // Build from hardcoded GCL engine if fetch fails
+      buildCodonGridFromEngine();
+    });
+
+  // ── Build codon grid ─────────────────────────────────────────────
+  function buildCodonGrid(codons) {
+    const grid = document.getElementById('codonGrid');
+    grid.innerHTML = Object.entries(codons).map(([codon, def]) => `
+      <div class="codon-card" title="${def.note||''}">
+        <div class="codon-top">
+          <span class="codon-seq">${codon}</span>
+          <span class="codon-aa">${def.aa} (${def.abbr})</span>
+        </div>
+        <span class="codon-morpheme m-${def.morpheme}">${def.morpheme.toUpperCase()}</span>
+        <span class="codon-note">${def.note||''}</span>
+      </div>`).join('');
+  }
+  function buildCodonGridFromEngine() {
+    // Minimal fallback using hardcoded morpheme map
+    const grid = document.getElementById('codonGrid');
+    const MORPHEME_COLOR = { init:'#4ecca3', segment:'#9f7aea', elongate:'#68d391', branch:'#f6e05e',
+      thicken:'#ed8936', stiffen:'#63b3ed', joint:'#48bb78', horn:'#ed8936', fin:'#63b3ed',
+      feature:'#b794f4', sensor:'#fc8181', spine:'#a3e635', ridge:'#bef264', claw:'#fc8181',
+      texture:'#68d391', stripe:'#63b3ed', crosslink:'#f6e05e', pigment:'#d53f8c',
+      softTissue:'#76e4f7', muscle:'#fc8181', stop:'#f56565' };
+    grid.innerHTML = '<p style="color:var(--muted)">Codon dictionary loading… Open the lab for full details.</p>';
+  }
+
+  // ── Build macro table ─────────────────────────────────────────────
+  function buildMacroTable(macros) {
+    const tbody = document.getElementById('macroTableBody');
+    tbody.innerHTML = Object.entries(macros).map(([name, def]) => `
+      <tr>
+        <td><span class="macro-name">${name}</span></td>
+        <td><span class="macro-exp">${def.expansion}</span></td>
+        <td style="font-size:0.8rem;color:var(--muted)">${def.description||''}</td>
+      </tr>`).join('');
+  }
+
+  // ── Build template grid ───────────────────────────────────────────
+  function buildTemplateGrid(templates) {
+    const grid = document.getElementById('templateGrid');
+    grid.innerHTML = Object.entries(templates).map(([name, def]) => `
+      <div class="tmpl-card">
+        <h3>@${name.replace('@','')}</h3>
+        <p>${def.description||''}</p>
+        <div class="tmpl-code">${def.template||''}</div>
+        <ul class="tmpl-rules">${(def.rules||[]).map(r=>`<li>→ ${r}</li>`).join('')}</ul>
+        <button class="use-tmpl" data-tmpl="${def.template||''}">Use this template →</button>
+      </div>`).join('');
+
+    // Wire "use this template" buttons
+    grid.querySelectorAll('.use-tmpl').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelector('[data-tab="playground"]').click();
+        document.getElementById('gclInput').value = btn.dataset.tmpl;
+      });
+    });
+  }
+
+  // ── Tab switching ─────────────────────────────────────────────────
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ── GCL Playground ───────────────────────────────────────────────
+  let lastDNA = '';
+  document.getElementById('compileBtn').addEventListener('click', compileGCL);
+  document.getElementById('gclInput').addEventListener('keydown', e => {
+    if (e.ctrlKey && e.key === 'Enter') compileGCL();
+  });
+
+  function compileGCL() {
+    const src    = document.getElementById('gclInput').value;
+    const result = GCL.compile(src);
+    const out    = document.getElementById('gclOutput');
+
+    // Color-coded explanation
+    const explain = GCL.explain(src);
+    const html = explain.map(t => {
+      if (t.type === 'codon')    return `<span class="gcl-tok-codon" title="Codon">${t.token}</span>`;
+      if (t.type === 'macro')    return `<span class="gcl-tok-macro" title="Expands: ${t.expansion}">${t.token}</span>`;
+      if (t.type === 'template') return `<span class="gcl-tok-template" title="Template">${t.token}</span>`;
+      return `<span class="gcl-tok-error" title="Error">${t.token}</span>`;
+    }).join(' ');
+
+    let outputHTML = `<div>${html}</div>`;
+
+    if (result.isValid) {
+      lastDNA = result.dnaSequence;
+      outputHTML += `<div class="gcl-result">
+        <div style="font-size:0.72rem;color:var(--muted);margin-bottom:0.4rem">Expanded DNA (${result.dnaSequence.length} bases · ${result.codons.length} codons)</div>
+        <div style="word-break:break-all;color:hsl(170,70%,65%);font-family:var(--mono);font-size:0.78rem">${result.dnaSequence}</div>
+        <div style="margin-top:0.6rem;font-size:0.72rem;color:hsl(45,90%,62%)">✓ Opens in DNA Lab → Free Creature mode</div>
+      </div>`;
+      document.getElementById('openLabBtn').style.display = 'block';
+    } else {
+      outputHTML += `<div class="gcl-result" style="border-color:hsl(0,60%,55%)">
+        <div style="color:hsl(0,70%,60%);font-size:0.82rem">⚠ ${result.errors.join('; ')}</div>
+      </div>`;
+    }
+    out.innerHTML = outputHTML;
+  }
+
+  document.getElementById('openLabBtn').addEventListener('click', () => {
+    if (lastDNA) {
+      window.open(`../lab.html?species=creature&seq=${encodeURIComponent(lastDNA)}`, '_blank');
+    }
+  });
+
+  // Quick insert buttons
+  const QUICK = ['#WING_PAIR','#DEWLAP','#BIG_HORN','#CURL_HORN','#COMPOUND_EYE',
+    '#ANTENNA','#CARAPACE','#SPOTTED_COAT','#STRIPED_COAT','#CREST','#BIOLUMINESCENT',
+    '#PROBOSCIS','#DORSAL_FIN','#PLUMAGE','#BEAK','@ARTHROPOD_INSECT','@VERTEBRATE_BIRD',
+    '@VERTEBRATE_FISH','@VERTEBRATE_QUADRUPED','@PLANT_FORB'];
+  const qi = document.getElementById('quickInserts');
+  QUICK.forEach(m => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.textContent = m;
+    btn.style.fontFamily = 'var(--mono)';
+    btn.style.fontSize   = '0.72rem';
+    btn.addEventListener('click', () => {
+      const ta = document.getElementById('gclInput');
+      const pos = ta.selectionStart;
+      ta.value = ta.value.slice(0, pos) + m + ' ' + ta.value.slice(pos);
+      ta.focus();
+      ta.selectionStart = ta.selectionEnd = pos + m.length + 1;
+    });
+    qi.appendChild(btn);
+  });
+})();
+</script>
+</body>
+</html>

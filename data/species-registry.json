@@ -1,0 +1,405 @@
+{
+  "version": "2.0.0",
+  "species": {
+
+    "mosquito": {
+      "id": "mosquito", "g2pId": "00001", "icon": "🦟",
+      "name": "Yellow Fever Mosquito", "scientificName": "Aedes aegypti",
+      "description": "The primary vector of dengue, yellow fever, and Zika viruses. Genomic structure reveals QTLs controlling wing venation complexity, proboscis elongation, and body size — all key determinants of vector competence.",
+      "bodyPlan": "insect", "colorPalette": { "primary": "hsl(40,30%,20%)", "accent": "hsl(50,60%,55%)", "highlight": "hsl(0,0%,80%)" },
+      "traits": {
+        "wingVenation": { "label": "Wing Complexity", "unit": "score", "min": 1, "max": 10, "baseline": 5, "icon": "🪽", "gene": "Nubbin/pdm", "source": "Matthews et al. 2018 PNAS" },
+        "proboscisLength": { "label": "Proboscis Length", "unit": "mm", "min": 1.5, "max": 3.5, "baseline": 2.2, "icon": "💉", "gene": "Abd-B HOX", "source": "Lavretsky et al. 2015" },
+        "bodySize": { "label": "Body Size", "unit": "mg", "min": 0.5, "max": 2.5, "baseline": 1.2, "icon": "📏", "gene": "insulin/TOR pathway", "source": "Marciano et al. 2017" },
+        "flightMuscle": { "label": "Flight Endurance", "unit": "km", "min": 1, "max": 12, "baseline": 5, "icon": "🛫", "gene": "ACO2", "source": "Huestis et al. 2012" }
+      },
+      "baseSequence": "ATGCCGCCGCCGGTTTTTGTTGTTGTTGGGTTGGCATAAAGGTGGTCGTGCTGCTGCTTAA",
+      "snps": [
+        { "id": "AE001", "gene": "Nubbin", "locus": "2L:3.2Mb", "position": 12, "ref": "T", "alt": "C", "trait": "wingVenation", "beta": 1.8, "description": "Nubbin enhancer variant — more complex wing venation veins", "source": "Matthews et al. 2018" },
+        { "id": "AE002", "gene": "Abd-B", "locus": "3R:24Mb", "position": 21, "ref": "T", "alt": "G", "trait": "proboscisLength", "beta": 0.4, "description": "Abd-B HOX posterior-shift — longer proboscis", "source": "Bernhardt et al. 2009" },
+        { "id": "AE003", "gene": "InR", "locus": "3L:15Mb", "position": 33, "ref": "G", "alt": "A", "trait": "bodySize", "beta": -0.3, "description": "Insulin receptor loss — reduced body mass", "source": "Marciano et al. 2017" },
+        { "id": "AE004", "gene": "ACO2", "locus": "1:8Mb", "position": 45, "ref": "G", "alt": "T", "trait": "flightMuscle", "beta": 1.5, "description": "Aconitase variant — higher flight muscle efficiency", "source": "Huestis et al. 2012" }
+      ]
+    },
+
+    "green-anole": {
+      "id": "green-anole", "g2pId": "00002", "icon": "🦎",
+      "name": "Green Anole", "scientificName": "Anolis carolinensis",
+      "description": "A lizard famous for rapid adaptive radiation — different populations evolve distinct dewlap colors, toe pad sizes, and limb lengths in response to habitat within decades. A master system for studying genotype-to-phenotype in real time.",
+      "bodyPlan": "reptile", "colorPalette": { "primary": "hsl(130,55%,35%)", "accent": "hsl(350,80%,55%)", "highlight": "hsl(80,70%,60%)" },
+      "traits": {
+        "dewlapColor": { "label": "Dewlap Hue", "unit": "°hsl", "min": 0, "max": 60, "baseline": 30, "icon": "🔴", "gene": "MC1R / ASIP", "source": "Tollis et al. 2018 Mol Ecol" },
+        "limb Length": { "label": "Hindlimb Length", "unit": "mm", "min": 25, "max": 55, "baseline": 38, "icon": "🦵", "gene": "Pitx1 / BMP4", "source": "Stuart et al. 2017 Science" },
+        "toePadSize": { "label": "Toe Pad Lamellae", "unit": "count", "min": 8, "max": 22, "baseline": 14, "icon": "🦎", "gene": "BMP2 / EphB2", "source": "Kolbe et al. 2016" },
+        "bodyColor": { "label": "Body Green Intensity", "unit": "%", "min": 0, "max": 100, "baseline": 75, "icon": "💚", "gene": "ASIP", "source": "Rosenblum et al. 2017" }
+      },
+      "baseSequence": "ATGCCGCCGGTTTGTTTTTATTATTTCTAATGCTGCTGCTTAA",
+      "snps": [
+        { "id": "AC001", "gene": "MC1R", "locus": "Chr2:45Mb", "position": 9, "ref": "G", "alt": "A", "trait": "dewlapColor", "beta": 18, "description": "MC1R loss-of-function — orange/yellow dewlap instead of red", "source": "Tollis et al. 2018" },
+        { "id": "AC002", "gene": "Pitx1", "locus": "Chr4:12Mb", "position": 18, "ref": "T", "alt": "C", "trait": "limbLength", "beta": 5.2, "description": "Pitx1 upregulation — longer hindlimbs for twig perching", "source": "Stuart et al. 2017" },
+        { "id": "AC003", "gene": "BMP2", "locus": "Chr6:8Mb", "position": 24, "ref": "T", "alt": "A", "trait": "toePadSize", "beta": 3.1, "description": "BMP2 enhancer — more toe pad lamellae for adhesion", "source": "Kolbe et al. 2016" },
+        { "id": "AC004", "gene": "ASIP", "locus": "Chr1:99Mb", "position": 30, "ref": "T", "alt": "G", "trait": "bodyColor", "beta": -25, "description": "ASIP gain — green suppression, dorsal darkening", "source": "Rosenblum et al. 2017" }
+      ]
+    },
+
+    "blue-crab": {
+      "id": "blue-crab", "g2pId": "00007", "icon": "🦀",
+      "name": "Blue Crab", "scientificName": "Callinectes sapidus",
+      "description": "An iconic crustacean of the Atlantic coast. Carapace width, claw chela mass, and distinctive blue coloration are quantitative traits governed by overlapping QTLs. Females develop brilliant orange when gravid — a SNP-controlled pigmentation switch.",
+      "bodyPlan": "crustacean", "colorPalette": { "primary": "hsl(210,70%,45%)", "accent": "hsl(35,90%,60%)", "highlight": "hsl(190,80%,75%)" },
+      "traits": {
+        "carapaceWidth": { "label": "Carapace Width", "unit": "cm", "min": 5, "max": 23, "baseline": 14, "icon": "🦀", "gene": "EGF-R pathway", "source": "Liedke et al. 2020" },
+        "chelaSize": { "label": "Chela (Claw) Mass", "unit": "g", "min": 1, "max": 18, "baseline": 6, "icon": "✊", "gene": "Myosin heavy-chain", "source": "Yamada et al. 2019" },
+        "blueIntensity": { "label": "Blue Color Intensity", "unit": "%", "min": 0, "max": 100, "baseline": 70, "icon": "💙", "gene": "crustacyanin", "source": "Chayen et al. 2003" },
+        "legCount": { "label": "Walking Leg Pairs", "unit": "pairs", "min": 4, "max": 5, "baseline": 4, "icon": "🦵", "gene": "Ubx / abd-A", "source": "estimated" }
+      },
+      "baseSequence": "ATGCCGTGTCCGTGTCCGTGTCCGTGTCCGGTTTTTGTTGTTTTTAAAAAAACTTAA",
+      "snps": [
+        { "id": "CS001", "gene": "EGF-R", "locus": "Scaffold42:1.1Mb", "position": 6, "ref": "T", "alt": "A", "trait": "carapaceWidth", "beta": 2.8, "description": "EGF receptor upregulation — wider carapace", "source": "Liedke et al. 2020" },
+        { "id": "CS002", "gene": "MHC-2", "locus": "Scaffold88:0.5Mb", "position": 30, "ref": "G", "alt": "T", "trait": "chelaSize", "beta": 3.5, "description": "Myosin heavy-chain variant — larger chela muscle", "source": "Yamada et al. 2019" },
+        { "id": "CS003", "gene": "crustacyanin", "locus": "Scaffold12:2.0Mb", "position": 39, "ref": "A", "alt": "T", "trait": "blueIntensity", "beta": -30, "description": "Crustacyanin binding loss — reduced blue pigment expression", "source": "Chayen et al. 2003" },
+        { "id": "CS004", "gene": "Ubx", "locus": "HoxC:0.8Mb", "position": 45, "ref": "A", "alt": "G", "trait": "legCount", "beta": 1, "description": "Ubx expression shift — extra leg segment specification", "source": "estimated from Drosophila homolog" }
+      ]
+    },
+
+    "damselfly": {
+      "id": "damselfly", "g2pId": "00013", "icon": "🪲",
+      "name": "Dainty Damselfly", "scientificName": "Coenagrion scitulum",
+      "description": "A delicate dragonfly relative with striking wing spot patterns controlled by the optix transcription factor — one of the most tightly mapped pattern loci in any insect. Wing length and body color also show strong SNP associations.",
+      "bodyPlan": "insect", "colorPalette": { "primary": "hsl(200,70%,50%)", "accent": "hsl(50,90%,65%)", "highlight": "hsl(0,0%,90%)" },
+      "traits": {
+        "wingSpotSize": { "label": "Wing Spot Area", "unit": "mm²", "min": 0, "max": 25, "baseline": 8, "icon": "🔵", "gene": "optix", "source": "Wellenreuther et al. 2018" },
+        "wingLength": { "label": "Wing Length", "unit": "mm", "min": 18, "max": 35, "baseline": 26, "icon": "🦋", "gene": "wingless", "source": "Wellenreuther et al. 2018" },
+        "bodyBlue": { "label": "Body Blue Intensity", "unit": "%", "min": 0, "max": 100, "baseline": 80, "icon": "💙", "gene": "ABCG2 (white locus)", "source": "Futahashi et al. 2019" },
+        "bodyLength": { "label": "Abdomen Length", "unit": "mm", "min": 22, "max": 38, "baseline": 30, "icon": "📏", "gene": "Abd-B", "source": "estimated" }
+      },
+      "baseSequence": "ATGCCGCCGCCGGTTTTTGTTGTTGTTTTTTTGTTGGCATGGTGGACTACTAA",
+      "snps": [
+        { "id": "COS001", "gene": "optix", "locus": "Scaffold3:0.4Mb", "position": 21, "ref": "T", "alt": "C", "trait": "wingSpotSize", "beta": 8.5, "description": "optix enhancer — dramatically expanded wing spots", "source": "Wellenreuther et al. 2018" },
+        { "id": "COS002", "gene": "wingless", "locus": "Scaffold1:5.2Mb", "position": 27, "ref": "T", "alt": "A", "trait": "wingLength", "beta": 4.1, "description": "Wg pathway activation — longer wings", "source": "Wellenreuther et al. 2018" },
+        { "id": "COS003", "gene": "white", "locus": "Scaffold2:1.8Mb", "position": 36, "ref": "G", "alt": "A", "trait": "bodyBlue", "beta": -40, "description": "ABCG2 deficiency — loss of blue ommochrome precursor", "source": "Futahashi et al. 2019" },
+        { "id": "COS004", "gene": "Abd-B", "locus": "HoxA:2.1Mb", "position": 42, "ref": "A", "alt": "T", "trait": "bodyLength", "beta": 3.0, "description": "Abd-B posterior extension — longer abdomen segments", "source": "estimated from Drosophila homolog" }
+      ]
+    },
+
+    "coho-salmon": {
+      "id": "coho-salmon", "g2pId": "00027", "icon": "🐟",
+      "name": "Coho Salmon", "scientificName": "Oncorhynchus kisutch",
+      "description": "An anadromous Pacific salmon with dramatic morphological changes between freshwater juvenile and ocean adult phases. Jaw hook development, spawning red coloration, and body length are controlled by discrete QTLs with large effect sizes.",
+      "bodyPlan": "fish", "colorPalette": { "primary": "hsl(200,40%,50%)", "accent": "hsl(10,80%,50%)", "highlight": "hsl(50,70%,75%)" },
+      "traits": {
+        "bodyLength": { "label": "Body Length", "unit": "cm", "min": 40, "max": 90, "baseline": 65, "icon": "📏", "gene": "GH1 / IGF1", "source": "Beall et al. 2012 Gen Res" },
+        "spawnColor": { "label": "Spawning Red", "unit": "%", "min": 0, "max": 100, "baseline": 20, "icon": "🔴", "gene": "MC1R / SLC45A2", "source": "Waples et al. 2004" },
+        "jawHook": { "label": "Kype / Jaw Hook", "unit": "mm", "min": 0, "max": 30, "baseline": 5, "icon": "🪝", "gene": "Pitx3 / EDA", "source": "Peichel et al. 2017" },
+        "finRays": { "label": "Dorsal Fin Rays", "unit": "count", "min": 8, "max": 14, "baseline": 11, "icon": "🐟", "gene": "Bmp4", "source": "Kimmel et al. 2012" }
+      },
+      "baseSequence": "ATGCCGTTGTTGTTGCCGTTTTTTTGGTTTGAAGAAGATCAAACTTCTTCTTAA",
+      "snps": [
+        { "id": "OK001", "gene": "GH1", "locus": "Chr28:15Mb", "position": 9, "ref": "T", "alt": "G", "trait": "bodyLength", "beta": 8.5, "description": "Growth hormone variant — significantly larger body in ocean phase", "source": "Beall et al. 2012" },
+        { "id": "OK002", "gene": "MC1R", "locus": "Chr7:3Mb", "position": 21, "ref": "T", "alt": "C", "trait": "spawnColor", "beta": 45, "description": "MC1R gain — intense red spawning coloration", "source": "Waples et al. 2004" },
+        { "id": "OK003", "gene": "Pitx3", "locus": "Chr4:22Mb", "position": 33, "ref": "G", "alt": "A", "trait": "jawHook", "beta": 12, "description": "Pitx3 jaw complex upregulation — larger kype hook in males", "source": "Peichel et al. 2017" },
+        { "id": "OK004", "gene": "Bmp4", "locus": "Chr15:8Mb", "position": 45, "ref": "A", "alt": "C", "trait": "finRays", "beta": 2, "description": "BMP4 dosage effect — additional dorsal fin rays", "source": "Kimmel et al. 2012" }
+      ]
+    },
+
+    "arctic-charr": {
+      "id": "arctic-charr", "g2pId": "00059", "icon": "🐠",
+      "name": "Arctic Charr", "scientificName": "Salvelinus alpinus",
+      "description": "One of the most morphologically variable vertebrates — isolated lake populations evolve dramatically different body shapes, spot patterns, and coloration within thousands of years. A model for rapid adaptive radiation via quantitative genetics.",
+      "bodyPlan": "fish", "colorPalette": { "primary": "hsl(200,50%,40%)", "accent": "hsl(30,90%,60%)", "highlight": "hsl(15,95%,65%)" },
+      "traits": {
+        "spotColor": { "label": "Spot Hue (orange→red)", "unit": "°hsl", "min": 15, "max": 60, "baseline": 30, "icon": "🔴", "gene": "MC1R / SLC45A2", "source": "Nugent et al. 2017 Mol Ecol" },
+        "spotCount": { "label": "Spot Count", "unit": "n", "min": 5, "max": 80, "baseline": 30, "icon": "🔵", "gene": "Agrp / ASIP", "source": "Kusakabe et al. 2009" },
+        "bodyDepth": { "label": "Body Depth", "unit": "% SL", "min": 15, "max": 35, "baseline": 22, "icon": "⬛", "gene": "BMP2b", "source": "Gudbrandsson et al. 2019" },
+        "adiposeFin": { "label": "Adipose Fin Size", "unit": "mm²", "min": 10, "max": 60, "baseline": 25, "icon": "🏊", "gene": "Wnt5b", "source": "Stewart et al. 2014" }
+      },
+      "baseSequence": "ATGCCGGCTGCTGCTCCGTTTTTTTGATCAAACTACTGGTTATGGTTATTAA",
+      "snps": [
+        { "id": "SA001", "gene": "SLC45A2", "locus": "Ssa14:2.3Mb", "position": 15, "ref": "T", "alt": "C", "trait": "spotColor", "beta": 20, "description": "SLC45A2 deficiency — orange→red pigment shift in spots", "source": "Nugent et al. 2017" },
+        { "id": "SA002", "gene": "ASIP", "locus": "Ssa2:44Mb", "position": 24, "ref": "A", "alt": "G", "trait": "spotCount", "beta": -15, "description": "ASIP upregulation suppresses spot formation", "source": "Kusakabe et al. 2009" },
+        { "id": "SA003", "gene": "BMP2b", "locus": "Ssa9:18Mb", "position": 33, "ref": "A", "alt": "T", "trait": "bodyDepth", "beta": 4.5, "description": "BMP2b deeper body form — benthic ecotype variant", "source": "Gudbrandsson et al. 2019" },
+        { "id": "SA004", "gene": "Wnt5b", "locus": "Ssa17:8Mb", "position": 42, "ref": "T", "alt": "G", "trait": "adiposeFin", "beta": 12, "description": "Wnt5b gain — larger adipose fin, pelagic ecotype", "source": "Stewart et al. 2014" }
+      ]
+    },
+
+    "rock-lobster": {
+      "id": "rock-lobster", "g2pId": "00060", "icon": "🦞",
+      "name": "Eastern Rock Lobster", "scientificName": "Sagmariasus verreauxi",
+      "description": "A large spiny lobster lacking true claws, instead relying on armored carapace, long antennae, and powerful tail fan. Population structure shows distinct oceanic genetic clusters separating colorful juvenile instars from adults.",
+      "bodyPlan": "crustacean", "colorPalette": { "primary": "hsl(25,80%,50%)", "accent": "hsl(50,90%,65%)", "highlight": "hsl(0,70%,60%)" },
+      "traits": {
+        "antennaLength": { "label": "Antenna Length", "unit": "% BL", "min": 80, "max": 200, "baseline": 140, "icon": "📡", "gene": "Dac / homothorax homolog", "source": "Aiken 1980; estimated" },
+        "carapaceLength": { "label": "Carapace Length", "unit": "mm", "min": 30, "max": 200, "baseline": 90, "icon": "🛡️", "gene": "EGF-R / EGFR-like", "source": "Phillips 2013" },
+        "coloration": { "label": "Orange Intensity", "unit": "%", "min": 0, "max": 100, "baseline": 65, "icon": "🟠", "gene": "crustacyanin / astaxanthin", "source": "estimated" },
+        "tailFanSize": { "label": "Tail Fan Area", "unit": "cm²", "min": 10, "max": 100, "baseline": 45, "icon": "🌀", "gene": "Abd posterior HOX", "source": "estimated" }
+      },
+      "baseSequence": "ATGCCGTGTCCGTGTCCGCGTTGTTGTTTTTGGTGGTCGTCGTCGTGCTGCTACTTAA",
+      "snps": [
+        { "id": "SV001", "gene": "hth-homolog", "locus": "Scaffold5:2.1Mb", "position": 18, "ref": "C", "alt": "T", "trait": "antennaLength", "beta": 30, "description": "Homothorax gain — dramatically longer antennae", "source": "estimated from Panulirus homolog" },
+        { "id": "SV002", "gene": "EGFR-like", "locus": "Scaffold12:0.9Mb", "position": 30, "ref": "G", "alt": "A", "trait": "carapaceLength", "beta": 15, "description": "EGFR growth acceleration — faster carapace elongation", "source": "Phillips 2013" },
+        { "id": "SV003", "gene": "crustacyanin", "locus": "Scaffold3:3.3Mb", "position": 42, "ref": "A", "alt": "T", "trait": "coloration", "beta": -25, "description": "Astaxanthin binding loss — paler orange coloration", "source": "estimated" },
+        { "id": "SV004", "gene": "Abd-B-like", "locus": "HoxC:1.5Mb", "position": 51, "ref": "T", "alt": "C", "trait": "tailFanSize", "beta": 12, "description": "Abd-B expansion — larger uropod/tail fan", "source": "estimated" }
+      ]
+    },
+
+    "green-peafowl": {
+      "id": "green-peafowl", "g2pId": "00081", "icon": "🦚",
+      "name": "Green Peafowl", "scientificName": "Pavo muticus",
+      "description": "The wilder, less-domesticated relative of the Indian peafowl. Iridescent green plumage results from nanostructural color (not pigment) — controlled by feather barb geometry. Train feather length and eyespot count are under sexual selection with known QTLs.",
+      "bodyPlan": "bird", "colorPalette": { "primary": "hsl(155,70%,35%)", "accent": "hsl(50,90%,60%)", "highlight": "hsl(200,80%,60%)" },
+      "traits": {
+        "trainLength": { "label": "Train Feather Length", "unit": "cm", "min": 90, "max": 200, "baseline": 140, "icon": "🌿", "gene": "PCSK1 / growth QTL", "source": "Dong et al. 2020" },
+        "eyespotCount": { "label": "Train Eyespot Count", "unit": "n", "min": 100, "max": 200, "baseline": 150, "icon": "👁️", "gene": "optix homolog", "source": "Doucet et al. 2006 estimated" },
+        "iridescence": { "label": "Iridescence Level", "unit": "%", "min": 0, "max": 100, "baseline": 80, "icon": "✨", "gene": "KRT nanostructure", "source": "Zi et al. 2003" },
+        "crestHeight": { "label": "Crest Feather Height", "unit": "mm", "min": 30, "max": 100, "baseline": 60, "icon": "👑", "gene": "BMP4 / noggin", "source": "estimated" }
+      },
+      "baseSequence": "ATGCCGGTTTTTTTTTGTAAAATCTTATTATTATTGGGGTGGTATTATGGTGGTCGTTAA",
+      "snps": [
+        { "id": "PM001", "gene": "PCSK1", "locus": "Chr1:52Mb", "position": 9, "ref": "T", "alt": "A", "trait": "trainLength", "beta": 25, "description": "PCSK1 variant — longer train feathers under sexual selection", "source": "Dong et al. 2020" },
+        { "id": "PM002", "gene": "optix-like", "locus": "Chr4:18Mb", "position": 21, "ref": "T", "alt": "G", "trait": "eyespotCount", "beta": 22, "description": "Optix-like enhancer — more eyespots on train feathers", "source": "estimated" },
+        { "id": "PM003", "gene": "KRT nanostr", "locus": "Chr3:7Mb", "position": 39, "ref": "T", "alt": "C", "trait": "iridescence", "beta": 20, "description": "Keratin lattice geometry variant — stronger iridescent reflection", "source": "Zi et al. 2003" },
+        { "id": "PM004", "gene": "BMP4", "locus": "Chr2:35Mb", "position": 51, "ref": "G", "alt": "T", "trait": "crestHeight", "beta": 15, "description": "BMP4/noggin balance — taller head crest feathers", "source": "estimated" }
+      ]
+    },
+
+    "bighorn-sheep": {
+      "id": "bighorn-sheep", "g2pId": "00083", "icon": "🐏",
+      "name": "Bighorn Sheep", "scientificName": "Ovis canadensis",
+      "description": "A North American mountain ungulate famous for massive curled horns used in ram-to-ram combat. Horn base circumference is strongly heritable (h²=0.61) and controlled by RXFP2 — the same gene found in Soay sheep horn morphology QTL.",
+      "bodyPlan": "mammal", "colorPalette": { "primary": "hsl(35,45%,55%)", "accent": "hsl(30,40%,35%)", "highlight": "hsl(40,30%,80%)" },
+      "traits": {
+        "hornCircumference": { "label": "Horn Base Circumference", "unit": "cm", "min": 25, "max": 50, "baseline": 37, "icon": "🐏", "gene": "RXFP2", "source": "Miller et al. 2012 Mol Ecol" },
+        "hornCurl": { "label": "Horn Curl (curl score)", "unit": "°", "min": 90, "max": 360, "baseline": 270, "icon": "🌀", "gene": "RXFP2 / TSHR", "source": "Poissant et al. 2012" },
+        "bodyMass": { "label": "Body Mass", "unit": "kg", "min": 50, "max": 130, "baseline": 90, "icon": "⚖️", "gene": "IGF1 / MSTN", "source": "Festa-Bianchet et al. 2019" },
+        "coatLightness": { "label": "Coat Lightness", "unit": "%", "min": 20, "max": 90, "baseline": 65, "icon": "☀️", "gene": "MC1R", "source": "Hedrick et al. 2016" }
+      },
+      "baseSequence": "ATGCCGCCGGTTTGTTTTGTTGTTGCGTCGTCGTCGTTGTTGTGTTCTTCTTAA",
+      "snps": [
+        { "id": "OC001", "gene": "RXFP2", "locus": "Oar2:250Mb", "position": 18, "ref": "G", "alt": "A", "trait": "hornCircumference", "beta": 5.2, "description": "RXFP2 androgen-receptor variant — thicker horn base", "source": "Miller et al. 2012" },
+        { "id": "OC002", "gene": "TSHR", "locus": "Oar3:10Mb", "position": 30, "ref": "C", "alt": "T", "trait": "hornCurl", "beta": 45, "description": "TSHR variant — tighter spiral horn curl", "source": "Poissant et al. 2012" },
+        { "id": "OC003", "gene": "MSTN", "locus": "Oar18:1Mb", "position": 39, "ref": "T", "alt": "A", "trait": "bodyMass", "beta": 12, "description": "Myostatin deficiency — significantly increased muscle mass", "source": "Festa-Bianchet et al. 2019" },
+        { "id": "OC004", "gene": "MC1R", "locus": "Oar14:5Mb", "position": 48, "ref": "T", "alt": "C", "trait": "coatLightness", "beta": 20, "description": "MC1R loss — lighter desert-adapted coat", "source": "Hedrick et al. 2016" }
+      ]
+    },
+
+    "manakin": {
+      "id": "manakin", "g2pId": "00088", "icon": "🐦",
+      "name": "White-collared Manakin", "scientificName": "Manacus candei / vitellinus",
+      "description": "Two manakin species with contrasting male throat collars (white vs golden) that hybridize in a narrow contact zone in Panama. MC1R is the key locus. Males perform elaborate acrobatic courtship displays — body shape and wing-snapping mechanics are also under selection.",
+      "bodyPlan": "bird", "colorPalette": { "primary": "hsl(25,10%,15%)", "accent": "hsl(50,5%,95%)", "highlight": "hsl(45,90%,65%)" },
+      "traits": {
+        "collarColor": { "label": "Collar Hue (white→gold)", "unit": "°hsl", "min": 0, "max": 60, "baseline": 5, "icon": "🟡", "gene": "MC1R", "source": "Uy et al. 2016 Evolution" },
+        "collarWidth": { "label": "Collar Width", "unit": "mm", "min": 8, "max": 30, "baseline": 18, "icon": "📏", "gene": "ASIP / KITLG", "source": "Uy et al. 2016" },
+        "wingSnap": { "label": "Wing-snap Frequency", "unit": "Hz", "min": 30, "max": 90, "baseline": 60, "icon": "💥", "gene": "Mhc-IIA fast fiber", "source": "Faux et al. 2010" },
+        "bodyMass": { "label": "Body Mass", "unit": "g", "min": 9, "max": 20, "baseline": 14, "icon": "⚖️", "gene": "GH1", "source": "estimated" }
+      },
+      "baseSequence": "ATGCCGGTTTTTTTTTGTAAATCTTGGTGGTATTATTATGCTTAA",
+      "snps": [
+        { "id": "MA001", "gene": "MC1R", "locus": "Chr11:5.2Mb", "position": 9, "ref": "T", "alt": "C", "trait": "collarColor", "beta": 45, "description": "MC1R Arg92Gln — golden collar phaeomelanin switch", "source": "Uy et al. 2016" },
+        { "id": "MA002", "gene": "ASIP", "locus": "Chr3:28Mb", "position": 18, "ref": "T", "alt": "G", "trait": "collarWidth", "beta": 6, "description": "ASIP suppression — wider white/gold collar patch", "source": "Uy et al. 2016" },
+        { "id": "MA003", "gene": "MHC-IIA", "locus": "Chr5:12Mb", "position": 27, "ref": "G", "alt": "T", "trait": "wingSnap", "beta": 15, "description": "Fast-twitch myosin variant — higher-frequency wing snapping in display", "source": "Faux et al. 2010" },
+        { "id": "MA004", "gene": "GH1", "locus": "Chr8:9Mb", "position": 36, "ref": "A", "alt": "C", "trait": "bodyMass", "beta": 3, "description": "GH1 reduced signal — compact body for aerial display", "source": "estimated" }
+      ]
+    },
+
+    "prairie-falcon": {
+      "id": "prairie-falcon", "g2pId": "00090", "icon": "🦅",
+      "name": "Prairie Falcon", "scientificName": "Falco mexicanus",
+      "description": "A swift, open-country falcon with distinctive dark malar stripes, pale belly with brown spotting, and powerful talons. Genomic population structure shows isolation-by-distance across the American West. An underrepresented raptor in GWAS studies — traits estimated from comparative falcon genomics.",
+      "bodyPlan": "bird", "colorPalette": { "primary": "hsl(35,50%,60%)", "accent": "hsl(30,40%,30%)", "highlight": "hsl(50,30%,90%)" },
+      "traits": {
+        "wingSpan": { "label": "Wingspan", "unit": "cm", "min": 72, "max": 113, "baseline": 94, "icon": "🦅", "gene": "GH1 / FGFR2", "source": "Johnson et al. 2021 estimated" },
+        "malarStripe": { "label": "Malar Stripe Width", "unit": "mm", "min": 2, "max": 15, "baseline": 8, "icon": "🖊️", "gene": "MC1R / TYRP1", "source": "Burtt & Ichida 2004 estimated" },
+        "talonLength": { "label": "Hallux Talon Length", "unit": "mm", "min": 14, "max": 28, "baseline": 20, "icon": "🦾", "gene": "BMP4 (beak/talon size)", "source": "estimated from Falco peregrinus" },
+        "bellySpotting": { "label": "Belly Spot Density", "unit": "%", "min": 5, "max": 70, "baseline": 35, "icon": "⚫", "gene": "TYRP1 / MC1R", "source": "Burtt & Ichida 2004" }
+      },
+      "baseSequence": "ATGCCGGTTTTTTTTTGTAAAAAAATCTTCTTATTATTATGGTGGTCGTTAA",
+      "snps": [
+        { "id": "FM001", "gene": "FGFR2", "locus": "Chr1:45Mb", "position": 9, "ref": "T", "alt": "G", "trait": "wingSpan", "beta": 9, "description": "FGFR2 limb bud expansion — broader wing skeletal development", "source": "estimated" },
+        { "id": "FM002", "gene": "MC1R", "locus": "Chr11:5Mb", "position": 21, "ref": "T", "alt": "C", "trait": "malarStripe", "beta": 4, "description": "MC1R dark pigment upregulation — wider malar stripe", "source": "Burtt & Ichida 2004" },
+        { "id": "FM003", "gene": "BMP4", "locus": "Chr4:20Mb", "position": 33, "ref": "A", "alt": "T", "trait": "talonLength", "beta": 3.5, "description": "BMP4 dosage — larger hallux talon for prey capture", "source": "estimated" },
+        { "id": "FM004", "gene": "TYRP1", "locus": "Chr1:89Mb", "position": 42, "ref": "T", "alt": "A", "trait": "bellySpotting", "beta": 18, "description": "TYRP1 gain — denser brown spotting on pale belly", "source": "Burtt & Ichida 2004" }
+      ]
+    },
+
+    "cattle": {
+      "id": "cattle", "g2pId": "00005", "icon": "🐄",
+      "name": "Domestic Cattle", "scientificName": "Bos taurus",
+      "description": "The pre-eminent livestock species and one of the best genomically characterized vertebrates. Thousands of mapped SNPs control coat color, horn status, body size, and milk composition. Used here as the reference quadruped body plan.",
+      "bodyPlan": "mammal", "colorPalette": { "primary": "hsl(30,40%,45%)", "accent": "hsl(0,0%,15%)", "highlight": "hsl(40,20%,90%)" },
+      "traits": {
+        "coatColor": { "label": "Coat Darkness", "unit": "%", "min": 0, "max": 100, "baseline": 50, "icon": "🎨", "gene": "MC1R", "source": "Pryce et al. 2011 Genet" },
+        "hornStatus": { "label": "Horn Presence", "unit": "binary", "min": 0, "max": 1, "baseline": 0, "icon": "🐏", "gene": "POLLED locus Chr1:1Mb", "source": "Medugorac et al. 2012" },
+        "bodyMass": { "label": "Body Mass", "unit": "kg", "min": 200, "max": 1000, "baseline": 600, "icon": "⚖️", "gene": "IGF2 / MSTN", "source": "Pryce et al. 2011" },
+        "muscleDepth": { "label": "Back Muscle Depth", "unit": "mm", "min": 30, "max": 90, "baseline": 55, "icon": "💪", "gene": "MSTN", "source": "Clop et al. 2006" }
+      },
+      "baseSequence": "ATGCCGCCGGTTTGTTTTTGTTGTCAAACTTCTTCTTATTAA",
+      "snps": [
+        { "id": "BT001", "gene": "MC1R", "locus": "Chr18:13Mb", "position": 9, "ref": "T", "alt": "A", "trait": "coatColor", "beta": 50, "description": "MC1R Glu92Lys — black coat (extension allele)", "source": "Pryce et al. 2011" },
+        { "id": "BT002", "gene": "POLLED", "locus": "Chr1:1.7Mb", "position": 15, "ref": "G", "alt": "A", "trait": "hornStatus", "beta": 1, "description": "Polled locus — hornless when alt allele present", "source": "Medugorac et al. 2012" },
+        { "id": "BT003", "gene": "IGF2", "locus": "Chr29:48Mb", "position": 27, "ref": "A", "alt": "G", "trait": "bodyMass", "beta": 45, "description": "IGF2 imprinting release — larger body mass", "source": "Pryce et al. 2011" },
+        { "id": "BT004", "gene": "MSTN", "locus": "Chr2:6Mb", "position": 36, "ref": "T", "alt": "C", "trait": "muscleDepth", "beta": 22, "description": "Myostatin loss-of-function — double muscling phenotype", "source": "Clop et al. 2006" }
+      ]
+    },
+
+    "camel": {
+      "id": "camel", "g2pId": "00008", "icon": "🐪",
+      "name": "Dromedary Camel", "scientificName": "Camelus dromedarius",
+      "description": "The world's most heat-adapted large mammal. Hump size, coat color, leg length, and water-retention capacity are quantitative traits under strong desert selection. The hump is unique — it stores fat (not water) and is controlled by dorsal adipose development genes.",
+      "bodyPlan": "mammal", "colorPalette": { "primary": "hsl(38,65%,65%)", "accent": "hsl(35,55%,45%)", "highlight": "hsl(45,30%,85%)" },
+      "traits": {
+        "humpSize": { "label": "Hump Volume", "unit": "kg fat", "min": 10, "max": 40, "baseline": 25, "icon": "🐪", "gene": "PPARG / dorsal fat QTL", "source": "Jirimutu et al. 2012 Nat Comms" },
+        "coatColor": { "label": "Coat Lightness", "unit": "%", "min": 20, "max": 100, "baseline": 75, "icon": "☀️", "gene": "MC1R", "source": "Jirimutu et al. 2012" },
+        "neckLength": { "label": "Neck Length", "unit": "cm", "min": 50, "max": 90, "baseline": 68, "icon": "📏", "gene": "HOXC8 / HOXC6", "source": "Farre et al. 2019 estimated" },
+        "legLength": { "label": "Leg Length", "unit": "cm", "min": 80, "max": 140, "baseline": 110, "icon": "🦵", "gene": "HMGA2 / GH1", "source": "estimated" }
+      },
+      "baseSequence": "ATGCCGGCTGCTCCGGTTTTTGTCAAACAAGCTGCTGCTTTTTCTTATTAA",
+      "snps": [
+        { "id": "CD001", "gene": "PPARG", "locus": "Chr3:12Mb", "position": 15, "ref": "G", "alt": "A", "trait": "humpSize", "beta": 5, "description": "PPARG gain — enhanced dorsal fat deposition (hump)", "source": "Jirimutu et al. 2012" },
+        { "id": "CD002", "gene": "MC1R", "locus": "Chr9:8Mb", "position": 21, "ref": "T", "alt": "C", "trait": "coatColor", "beta": -30, "description": "MC1R loss — lighter sand-colored coat", "source": "Jirimutu et al. 2012" },
+        { "id": "CD003", "gene": "HOXC8", "locus": "HoxC:0.9Mb", "position": 27, "ref": "A", "alt": "G", "trait": "neckLength", "beta": 8, "description": "HOXC8/C6 cervical extension — more neck vertebrae elongation", "source": "Farre et al. 2019 estimated" },
+        { "id": "CD004", "gene": "HMGA2", "locus": "Chr18:22Mb", "position": 39, "ref": "T", "alt": "A", "trait": "legLength", "beta": 12, "description": "HMGA2 height locus — significantly taller leg bones", "source": "estimated" }
+      ]
+    },
+
+    "labrador": {
+      "id": "labrador", "g2pId": "00009", "icon": "🐕",
+      "name": "Labrador Retriever", "scientificName": "Canis lupus familiaris (Lab)",
+      "description": "One of the most SNP-characterized dog breeds. Coat color is controlled by just 2 loci (MC1R and TYRP1), determining all three coat variants: yellow, black, and chocolate. Body size and hip dysplasia risk are also well-mapped.",
+      "bodyPlan": "mammal", "colorPalette": { "primary": "hsl(38,60%,70%)", "accent": "hsl(25,40%,30%)", "highlight": "hsl(40,20%,95%)" },
+      "traits": {
+        "coatColor": { "label": "Coat Pigment", "unit": "score", "min": 0, "max": 2, "baseline": 1, "icon": "🟡", "gene": "MC1R / TYRP1", "source": "Everts et al. 2000" },
+        "bodyMass": { "label": "Body Mass", "unit": "kg", "min": 25, "max": 40, "baseline": 32, "icon": "⚖️", "gene": "IGF1 / HMGA2", "source": "Sutter et al. 2007 Science" },
+        "coatLength": { "label": "Coat Length", "unit": "cm", "min": 1, "max": 5, "baseline": 2, "icon": "🐾", "gene": "FGF5", "source": "Cadieu et al. 2009 Science" },
+        "tailCarriage": { "label": "Tail Curl", "unit": "°", "min": 0, "max": 90, "baseline": 10, "icon": "🐕", "gene": "T (Brachyury)", "source": "estimated" }
+      },
+      "baseSequence": "ATGCCGCCGGTTTGTTTTGTTGTCTTTATACTACTAA",
+      "snps": [
+        { "id": "CL001", "gene": "MC1R", "locus": "Chr5:63Mb", "position": 9, "ref": "G", "alt": "A", "trait": "coatColor", "beta": 2, "description": "MC1R loss — yellow coat (all phaeomelanin)", "source": "Everts et al. 2000" },
+        { "id": "CL002", "gene": "TYRP1", "locus": "Chr11:33Mb", "position": 15, "ref": "T", "alt": "C", "trait": "coatColor", "beta": -1, "description": "TYRP1 loss — chocolate coat (brown eumelanin)", "source": "Everts et al. 2000" },
+        { "id": "CL003", "gene": "IGF1", "locus": "Chr15:41Mb", "position": 21, "ref": "A", "alt": "G", "trait": "bodyMass", "beta": 5, "description": "IGF1 haplotype — major dog body size locus", "source": "Sutter et al. 2007" },
+        { "id": "CL004", "gene": "FGF5", "locus": "Chr32:5Mb", "position": 30, "ref": "A", "alt": "T", "trait": "coatLength", "beta": 2, "description": "FGF5 loss-of-function — longer coat (fluffy Lab)", "source": "Cadieu et al. 2009" }
+      ]
+    },
+
+    "goat": {
+      "id": "goat", "g2pId": "00011", "icon": "🐐",
+      "name": "Domestic Goat", "scientificName": "Capra hircus",
+      "description": "One of the first domesticated ungulates, goats show remarkable horn diversity — polled, scimitar, corkscrew, and giant horn morphs — all governed by the POLLED/RXFP2 axis. Coat color and beard development are secondary mapped traits.",
+      "bodyPlan": "mammal", "colorPalette": { "primary": "hsl(38,30%,65%)", "accent": "hsl(30,25%,30%)", "highlight": "hsl(40,15%,90%)" },
+      "traits": {
+        "hornStyle": { "label": "Horn Curl Style", "unit": "score 0-3", "min": 0, "max": 3, "baseline": 1, "icon": "🐐", "gene": "RXFP2", "source": "Boulanger et al. 2016 Genetics" },
+        "beardLength": { "label": "Beard Length", "unit": "cm", "min": 0, "max": 20, "baseline": 5, "icon": "🧔", "gene": "FGF5 / androgen QTL", "source": "estimated" },
+        "coatPattern": { "label": "Coat Pattern Score", "unit": "score", "min": 0, "max": 10, "baseline": 4, "icon": "🎨", "gene": "ASIP / EDNRB", "source": "Zheng et al. 2013" },
+        "bodyMass": { "label": "Body Mass", "unit": "kg", "min": 20, "max": 90, "baseline": 45, "icon": "⚖️", "gene": "GH1 / IGF1", "source": "estimated" }
+      },
+      "baseSequence": "ATGCCGCCGGTTTGTTTGTTCGTCGTTCTTCTGCTGCTTAA",
+      "snps": [
+        { "id": "CH001", "gene": "RXFP2", "locus": "Chr10:29Mb", "position": 15, "ref": "G", "alt": "A", "trait": "hornStyle", "beta": 2, "description": "RXFP2 allele — shift from scimitar to corkscrew horn shape", "source": "Boulanger et al. 2016" },
+        { "id": "CH002", "gene": "FGF5", "locus": "Chr6:2Mb", "position": 21, "ref": "A", "alt": "G", "trait": "beardLength", "beta": 6, "description": "FGF5 loss — longer facial hair growth", "source": "estimated" },
+        { "id": "CH003", "gene": "ASIP", "locus": "Chr13:62Mb", "position": 27, "ref": "T", "alt": "C", "trait": "coatPattern", "beta": 3, "description": "ASIP ventral suppression — more complex coat banding", "source": "Zheng et al. 2013" },
+        { "id": "CH004", "gene": "GH1", "locus": "Chr19:55Mb", "position": 36, "ref": "A", "alt": "T", "trait": "bodyMass", "beta": 15, "description": "GH1 upregulation — larger body frame", "source": "estimated" }
+      ]
+    },
+
+    "orange-roughy": {
+      "id": "orange-roughy", "g2pId": "00042", "icon": "🐡",
+      "name": "Orange Roughy", "scientificName": "Hoplostethus atlanticus",
+      "description": "A deep-sea fish that lives up to 150 years, growing extraordinarily slowly. Its orange-red coloration (from dietary carotenoids), large spiny head, small fins, and robust skeleton are classic deep-sea adaptations. Genetic structure is studied for fisheries management.",
+      "bodyPlan": "fish", "colorPalette": { "primary": "hsl(20,80%,55%)", "accent": "hsl(15,70%,40%)", "highlight": "hsl(30,90%,70%)" },
+      "traits": {
+        "bodyColor": { "label": "Orange-Red Intensity", "unit": "%", "min": 30, "max": 100, "baseline": 75, "icon": "🟠", "gene": "SLC7A11 (xCT) carotenoid", "source": "estimated from deep-sea fish genomics" },
+        "spineCount": { "label": "Head Spine Count", "unit": "n", "min": 4, "max": 14, "baseline": 8, "icon": "🌵", "gene": "BMP pathway", "source": "estimated" },
+        "bodyDepth": { "label": "Body Depth", "unit": "% SL", "min": 25, "max": 50, "baseline": 38, "icon": "⬛", "gene": "BMP2b", "source": "estimated" },
+        "lifespan": { "label": "Max Lifespan (proxy)", "unit": "years ×10", "min": 5, "max": 15, "baseline": 12, "icon": "⏳", "gene": "TERT / p53", "source": "Cailliet et al. 2001" }
+      },
+      "baseSequence": "ATGCCGTTGTTGTTGTTGCCGTTTGAGAAGAATATTATTATTTGGTGGTGTATAA",
+      "snps": [
+        { "id": "HA001", "gene": "SLC7A11", "locus": "Scaffold18:0.8Mb", "position": 18, "ref": "T", "alt": "C", "trait": "bodyColor", "beta": 15, "description": "Carotenoid transport enhancement — deeper orange pigmentation", "source": "estimated" },
+        { "id": "HA002", "gene": "BMP4", "locus": "Scaffold5:2.2Mb", "position": 27, "ref": "A", "alt": "T", "trait": "spineCount", "beta": 3, "description": "BMP4 gain — additional cephalic spine formation", "source": "estimated" },
+        { "id": "HA003", "gene": "BMP2b", "locus": "Scaffold9:1.1Mb", "position": 36, "ref": "G", "alt": "A", "trait": "bodyDepth", "beta": 5, "description": "BMP2b expansion — deeper body plan for pressure resistance", "source": "estimated" },
+        { "id": "HA004", "gene": "TERT", "locus": "Scaffold2:4.5Mb", "position": 45, "ref": "A", "alt": "G", "trait": "lifespan", "beta": 2, "description": "Telomerase upregulation — extended cellular longevity", "source": "Cailliet et al. 2001" }
+      ]
+    },
+
+    "sorghum": {
+      "id": "sorghum", "g2pId": "00066", "icon": "🌾",
+      "name": "Sorghum", "scientificName": "Sorghum bicolor",
+      "description": "A C4 cereal grass adapted to semi-arid environments. Plant height (controlled by Dw1-Dw4 loci), panicle architecture, grain color, and stem sweetness (juice sugar content) are major agronomic QTLs. Key food crop for Sub-Saharan Africa.",
+      "bodyPlan": "plant-grass", "colorPalette": { "primary": "hsl(80,55%,40%)", "accent": "hsl(40,70%,60%)", "highlight": "hsl(35,80%,70%)" },
+      "traits": {
+        "plantHeight": { "label": "Plant Height", "unit": "cm", "min": 50, "max": 400, "baseline": 150, "icon": "📏", "gene": "Dw1 / Dw3 / GA20ox", "source": "Thurber et al. 2013 Genetics" },
+        "panicleSize": { "label": "Panicle Length", "unit": "cm", "min": 10, "max": 40, "baseline": 22, "icon": "🌾", "gene": "GN1a homolog", "source": "Ritter et al. 2008" },
+        "grainColor": { "label": "Grain Color (tan→red)", "unit": "°hsl", "min": 30, "max": 0, "baseline": 15, "icon": "🟤", "gene": "Y / Tan1 loci", "source": "Morris et al. 2013" },
+        "stemSugar": { "label": "Stem Sugar Content", "unit": "°Brix", "min": 2, "max": 22, "baseline": 8, "icon": "🍬", "gene": "SWEET transporter", "source": "Shakoor et al. 2014" }
+      },
+      "baseSequence": "ATGGCTGCTGCTGCTGCTGCTTTGTTGGATGATGATGCTGCTTCTTAA",
+      "snps": [
+        { "id": "SB001", "gene": "Dw1", "locus": "Chr9:53Mb", "position": 9, "ref": "A", "alt": "G", "trait": "plantHeight", "beta": 60, "description": "Dw1 loss-of-function — tall non-dwarf phenotype restored", "source": "Thurber et al. 2013" },
+        { "id": "SB002", "gene": "GN1a", "locus": "Chr3:70Mb", "position": 21, "ref": "G", "alt": "A", "trait": "panicleSize", "beta": 6, "description": "Grain number per panicle QTL increase", "source": "Ritter et al. 2008" },
+        { "id": "SB003", "gene": "Tan1", "locus": "Chr10:55Mb", "position": 33, "ref": "T", "alt": "C", "trait": "grainColor", "beta": -20, "description": "Tan1 loss — red grain pigment reduction (tan/yellow grain)", "source": "Morris et al. 2013" },
+        { "id": "SB004", "gene": "SWEET", "locus": "Chr4:66Mb", "position": 39, "ref": "A", "alt": "T", "trait": "stemSugar", "beta": 7, "description": "SWEET transporter gain — accumulates more stem sucrose for biofuel", "source": "Shakoor et al. 2014" }
+      ]
+    },
+
+    "arabidopsis": {
+      "id": "arabidopsis", "g2pId": "00003", "icon": "🌱",
+      "name": "Thale Cress", "scientificName": "Arabidopsis thaliana",
+      "description": "The model organism of plant biology — every developmental gene we know about in plants was discovered here first. Flowering time, rosette size, trichome density, and hypocotyl length are the most-mapped quantitative traits in any organism.",
+      "bodyPlan": "plant-forb", "colorPalette": { "primary": "hsl(120,55%,35%)", "accent": "hsl(50,80%,70%)", "highlight": "hsl(300,40%,75%)" },
+      "traits": {
+        "floweringTime": { "label": "Days to Flower", "unit": "days", "min": 10, "max": 100, "baseline": 28, "icon": "🌸", "gene": "FLC / FT / CO", "source": "Atwell et al. 2010 Nature" },
+        "rosetteSize": { "label": "Rosette Diameter", "unit": "cm", "min": 1, "max": 15, "baseline": 6, "icon": "🌿", "gene": "AN3 / GIF1", "source": "Atwell et al. 2010" },
+        "trichomeDensity": { "label": "Leaf Hair Density", "unit": "count/mm²", "min": 0, "max": 20, "baseline": 5, "icon": "🔬", "gene": "GL1 / TTG1", "source": "Mauricio 2005" },
+        "flowerColor": { "label": "Petal Color (white→purple)", "unit": "°hsl", "min": 280, "max": 300, "baseline": 0, "icon": "🌸", "gene": "CHS / DFR flavonoid pathway", "source": "estimated" }
+      },
+      "baseSequence": "ATGTTGTTGGCTGCTGTTTTTGTTTATTATTCTTGGTAATAA",
+      "snps": [
+        { "id": "AT001", "gene": "FLC", "locus": "Chr5:3.2Mb", "position": 9, "ref": "T", "alt": "C", "trait": "floweringTime", "beta": -15, "description": "FLC loss-of-function — early flowering summer annual ecotype", "source": "Atwell et al. 2010" },
+        { "id": "AT002", "gene": "AN3", "locus": "Chr1:23Mb", "position": 15, "ref": "G", "alt": "A", "trait": "rosetteSize", "beta": 2.5, "description": "AN3 cell proliferation factor gain — larger leaves", "source": "Atwell et al. 2010" },
+        { "id": "AT003", "gene": "GL1", "locus": "Chr3:0.8Mb", "position": 24, "ref": "A", "alt": "T", "trait": "trichomeDensity", "beta": 8, "description": "GL1 MYB transcription factor gain — more leaf trichomes", "source": "Mauricio 2005" },
+        { "id": "AT004", "gene": "CHS", "locus": "Chr2:70Mb", "position": 33, "ref": "T", "alt": "G", "trait": "flowerColor", "beta": 20, "description": "Chalcone synthase gain — purple anthocyanin pigment in petals", "source": "estimated" }
+      ]
+    },
+
+    "soay-sheep": {
+      "id": "soay-sheep", "g2pId": "00092", "icon": "🐑",
+      "name": "Soay Sheep", "scientificName": "Ovis aries (Soay ecotype)",
+      "description": "A primitive domestic sheep from the St Kilda archipelago, famous as a flagship model organism for evolutionary genetics. Coat color, horn morphology, body size, jaw length, and limb bone lengths are all mapped.",
+      "bodyPlan": "mammal", "colorPalette": { "primary": "hsl(35,40%,55%)", "accent": "hsl(30,35%,30%)", "highlight": "hsl(40,25%,85%)" },
+      "traits": {
+        "coatColor": { "label": "Coat Darkness", "unit": "%", "min": 0, "max": 100, "baseline": 70, "icon": "🎨", "gene": "Tyrp1 / MC1R", "source": "GWAS G2P-00092" },
+        "spotting": { "label": "White Spotting", "unit": "%", "min": 0, "max": 100, "baseline": 10, "icon": "◻️", "gene": "EDNRB", "source": "GWAS G2P-00093" },
+        "hornLength": { "label": "Horn Length", "unit": "cm", "min": 0, "max": 80, "baseline": 30, "icon": "🐏", "gene": "RXFP2", "source": "GWAS G2P-00094" },
+        "bodySize": { "label": "Body Size", "unit": "kg", "min": 15, "max": 45, "baseline": 28, "icon": "⚖️", "gene": "IGF1 / GH1", "source": "GWAS G2P-00099" }
+      },
+      "baseSequence": "ATGCCTGTAGCTAAGCTTGCAATGCGGCTTAAGCATGCAATGCTTGGCAAAGTAGCTTAAGCAGCTTGCAATGCGGCTTAAGCGCATGCAATGCTTGGCAAA",
+      "snps": [
+        { "id": "OS001", "gene": "Tyrp1", "locus": "Oar2:109Mb", "position": 3, "ref": "T", "alt": "A", "trait": "coatColor", "beta": -35, "description": "Tyrp1 catalytic change — lighter tan coat", "source": "G2P-00092" },
+        { "id": "OS002", "gene": "EDNRB", "locus": "Oar7:30Mb", "position": 15, "ref": "G", "alt": "A", "trait": "spotting", "beta": 45, "description": "EDNRB pathway disruption — white spotting pattern", "source": "G2P-00093" },
+        { "id": "OS003", "gene": "RXFP2", "locus": "Oar10:29Mb", "position": 27, "ref": "C", "alt": "T", "trait": "hornLength", "beta": 18, "description": "RXFP2 androgen-response — longer slimmer horns", "source": "G2P-00094" },
+        { "id": "OS004", "gene": "IGF1", "locus": "Oar3:58Mb", "position": 39, "ref": "A", "alt": "G", "trait": "bodySize", "beta": 5.5, "description": "IGF1 haplotype — increased yearling body mass", "source": "G2P-00099" }
+      ]
+    },
+
+    "grass-plant": {
+      "id": "grass-plant", "g2pId": "legacy", "icon": "🌿",
+      "name": "Annual Ryegrass", "scientificName": "Lolium perenne",
+      "description": "A temperate perennial grass used as a reference plant body plan model. Leaf width, tillering capacity, and chlorophyll content are the main quantitative traits.",
+      "bodyPlan": "plant-grass", "colorPalette": { "primary": "hsl(115,60%,35%)", "accent": "hsl(90,50%,50%)", "highlight": "hsl(75,70%,65%)" },
+      "traits": {
+        "chlorophyll": { "label": "Chlorophyll Content", "unit": "%", "min": 0, "max": 100, "baseline": 65, "icon": "🍃", "gene": "ChlD1 / CAO", "source": "Ravenek et al. 2016" },
+        "anthocyanin": { "label": "Anthocyanin (purple)", "unit": "%", "min": 0, "max": 100, "baseline": 15, "icon": "💜", "gene": "DFR / MYB75", "source": "Schwinn et al. 2006" },
+        "leafWidth": { "label": "Leaf Width", "unit": "mm", "min": 1, "max": 12, "baseline": 4, "icon": "🌿", "gene": "GL2 / YABBY", "source": "Hu et al. 2010" },
+        "tillering": { "label": "Tiller Count", "unit": "stems", "min": 1, "max": 12, "baseline": 4, "icon": "🌱", "gene": "MOC1 / LAX1", "source": "Li et al. 2003" }
+      },
+      "baseSequence": "ATGCCAGCCATTGGTAACGTCATGCAATGCGCCCCATGCTTGGCAAATGCGGCCTAAGCAGCTTGCAATG",
+      "snps": [
+        { "id": "LP001", "gene": "ChlD1", "locus": "Chr1:15Mb", "position": 3, "ref": "C", "alt": "T", "trait": "chlorophyll", "beta": 25, "description": "Chlorophyll D1 variant — enhanced photosystem efficiency", "source": "Ravenek et al. 2016" },
+        { "id": "LP002", "gene": "MYB75", "locus": "Chr5:2Mb", "position": 15, "ref": "A", "alt": "T", "trait": "anthocyanin", "beta": 40, "description": "MYB75 transcription factor gain — purple leaf anthocyanin", "source": "Schwinn et al. 2006" },
+        { "id": "LP003", "gene": "GL2", "locus": "Chr2:8Mb", "position": 27, "ref": "G", "alt": "A", "trait": "leafWidth", "beta": 3, "description": "GL2 loss — wider leaf blade", "source": "Hu et al. 2010" },
+        { "id": "LP004", "gene": "MOC1", "locus": "Chr6:30Mb", "position": 36, "ref": "A", "alt": "C", "trait": "tillering", "beta": 4, "description": "MOC1 gain — prolific tillering (branching)", "source": "Li et al. 2003" }
+      ]
+    }
+  }
+}

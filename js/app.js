@@ -26,6 +26,26 @@ async function loadData() {
   ]);
   state.organisms = orgData.organisms;
   state.snpRegistry = snpData.snps;
+
+  // ── Species-registry integration (lab.html injects these globals) ──
+  const speciesId = window.__SPECIES_ID;
+  const registry  = window.__SPECIES_REGISTRY;
+  if (speciesId && registry && registry.species) {
+    const spec = registry.species[speciesId];
+    if (spec) {
+      // Inject as organism record so existing app logic stays intact
+      state.organisms[speciesId] = {
+        id:             speciesId,
+        name:           spec.name,
+        scientificName: spec.scientificName,
+        description:    spec.description,
+        icon:           spec.icon || '🧬',
+        baseSequence:   spec.baseSequence || 'ATGCCGGTTTTTGTTTATTCTTAA',
+      };
+      // Inject SNPs into the SNP registry keyed by speciesId
+      state.snpRegistry[speciesId] = spec.snps || [];
+    }
+  }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -575,8 +595,15 @@ async function init() {
   // Init helix canvas
   initHelixBackground();
 
-  // Load first organism
-  switchOrganism('plant');
+  // Load first organism — honour lab.html URL param if present
+  const startOrganism = window.__SPECIES_ID || 'plant';
+  // If the species defines a base sequence from URL (?seq=), use it
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlSeq = urlParams.get('seq');
+  if (urlSeq && state.organisms[startOrganism]) {
+    state.organisms[startOrganism].baseSequence = urlSeq;
+  }
+  switchOrganism(startOrganism);
 }
 
 document.addEventListener('DOMContentLoaded', init);

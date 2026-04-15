@@ -1,0 +1,257 @@
+{
+  "version": "1.0.0",
+  "name": "Genomic Creature Language — Codon Dictionary",
+  "description": "Complete mapping of all 64 codons to morphogenetic instructions, named macro expansions, and body plan templates for the GCL in-house design language.",
+
+  "codons": {
+    "ATG": { "aa": "Met", "abbr": "M", "morpheme": "init",     "label": "Body axis init",       "note": "Start codon. Always required. Initializes body axis and head." },
+    "CCT": { "aa": "Pro", "abbr": "P", "morpheme": "segment",  "label": "Body segment",         "note": "Proline — kink-former. Models Wnt/Notch segmentation clock." },
+    "CCC": { "aa": "Pro", "abbr": "P", "morpheme": "segment",  "label": "Body segment",         "note": "Synonymous with CCT. Same morpheme — silent if swapped." },
+    "CCA": { "aa": "Pro", "abbr": "P", "morpheme": "segment",  "label": "Body segment",         "note": "Synonymous with CCT. Same morpheme — silent if swapped." },
+    "CCG": { "aa": "Pro", "abbr": "P", "morpheme": "segment",  "label": "Body segment",         "note": "Synonymous with CCT. Same morpheme — silent if swapped." },
+    "GCT": { "aa": "Ala", "abbr": "A", "morpheme": "elongate", "label": "Segment elongation",   "note": "Alanine — helix former. Stretches current segment without adding mass." },
+    "GCC": { "aa": "Ala", "abbr": "A", "morpheme": "elongate", "label": "Segment elongation",   "note": "Synonymous with GCT." },
+    "GCA": { "aa": "Ala", "abbr": "A", "morpheme": "elongate", "label": "Segment elongation",   "note": "Synonymous with GCT." },
+    "GCG": { "aa": "Ala", "abbr": "A", "morpheme": "elongate", "label": "Segment elongation",   "note": "Synonymous with GCT." },
+    "GTT": { "aa": "Val", "abbr": "V", "morpheme": "branch",   "label": "Bilateral limb pair",  "note": "Valine — branched side chain. Models Pitx/Dll bilateral limb bud induction. Always creates bilateral (left+right) pair." },
+    "GTC": { "aa": "Val", "abbr": "V", "morpheme": "branch",   "label": "Bilateral limb pair",  "note": "Synonymous with GTT." },
+    "GTA": { "aa": "Val", "abbr": "V", "morpheme": "branch",   "label": "Bilateral limb pair",  "note": "Synonymous with GTT." },
+    "GTG": { "aa": "Val", "abbr": "V", "morpheme": "branch",   "label": "Bilateral limb pair",  "note": "Synonymous with GTT." },
+    "TTA": { "aa": "Leu", "abbr": "L", "morpheme": "thicken",  "label": "Body mass increase",   "note": "Leucine — large hydrophobic. Increases body width/mass." },
+    "TTG": { "aa": "Leu", "abbr": "L", "morpheme": "thicken",  "label": "Body mass increase",   "note": "Synonymous with TTA." },
+    "CTT": { "aa": "Leu", "abbr": "L", "morpheme": "thicken",  "label": "Body mass increase",   "note": "Synonymous with TTA." },
+    "CTC": { "aa": "Leu", "abbr": "L", "morpheme": "thicken",  "label": "Body mass increase",   "note": "Synonymous with TTA." },
+    "CTA": { "aa": "Leu", "abbr": "L", "morpheme": "thicken",  "label": "Body mass increase",   "note": "Synonymous with TTA." },
+    "CTG": { "aa": "Leu", "abbr": "L", "morpheme": "thicken",  "label": "Body mass increase",   "note": "Synonymous with TTA." },
+    "ATT": { "aa": "Ile", "abbr": "I", "morpheme": "stiffen",  "label": "Rigidity / joint lock","note": "Isoleucine — rigid branched chain. Reduces joint bend, stiffens limbs." },
+    "ATC": { "aa": "Ile", "abbr": "I", "morpheme": "stiffen",  "label": "Rigidity / joint lock","note": "Synonymous with ATT." },
+    "ATA": { "aa": "Ile", "abbr": "I", "morpheme": "stiffen",  "label": "Rigidity / joint lock","note": "Synonymous with ATT." },
+    "GGT": { "aa": "Gly", "abbr": "G", "morpheme": "joint",    "label": "Articulation joint",   "note": "Glycine — smallest AA, most flexible. Creates bend in body axis or appendage." },
+    "GGC": { "aa": "Gly", "abbr": "G", "morpheme": "joint",    "label": "Articulation joint",   "note": "Synonymous with GGT." },
+    "GGA": { "aa": "Gly", "abbr": "G", "morpheme": "joint",    "label": "Articulation joint",   "note": "Synonymous with GGT." },
+    "GGG": { "aa": "Gly", "abbr": "G", "morpheme": "joint",    "label": "Articulation joint",   "note": "Synonymous with GGT." },
+    "CGT": { "aa": "Arg", "abbr": "R", "morpheme": "horn",     "label": "Horn / protrusion",    "note": "Arginine — guanidinium group, rigid protrusion. Models RXFP2-driven horn growth. Pairwise when early in sequence." },
+    "CGC": { "aa": "Arg", "abbr": "R", "morpheme": "horn",     "label": "Horn / protrusion",    "note": "Synonymous with CGT." },
+    "CGA": { "aa": "Arg", "abbr": "R", "morpheme": "horn",     "label": "Horn / protrusion",    "note": "Synonymous with CGT." },
+    "CGG": { "aa": "Arg", "abbr": "R", "morpheme": "horn",     "label": "Horn / protrusion",    "note": "Synonymous with CGT." },
+    "AGA": { "aa": "Arg", "abbr": "R", "morpheme": "horn",     "label": "Horn / protrusion",    "note": "Synonymous with CGT." },
+    "AGG": { "aa": "Arg", "abbr": "R", "morpheme": "horn",     "label": "Horn / protrusion",    "note": "Synonymous with CGT." },
+    "TTT": { "aa": "Phe", "abbr": "F", "morpheme": "fin",      "label": "Fin / wing / flap",    "note": "Phenylalanine — planar aromatic ring. Models flat lateral structures: fins, wings, dewlaps, tail flukes. Context-interpreted by species." },
+    "TTC": { "aa": "Phe", "abbr": "F", "morpheme": "fin",      "label": "Fin / wing / flap",    "note": "Synonymous with TTT." },
+    "TGG": { "aa": "Trp", "abbr": "W", "morpheme": "feature",  "label": "Unique feature",       "note": "Tryptophan — rarest AA. Models rare developmental innovations: compound eyes, bioluminescence, electroreception, ink glands." },
+    "CAT": { "aa": "His", "abbr": "H", "morpheme": "sensor",   "label": "Sensory organ (eye)",  "note": "Histidine — imidazole ring, pH-sensitive. Models photoreceptor/sensory cell specification. Produces eye pair." },
+    "CAC": { "aa": "His", "abbr": "H", "morpheme": "sensor",   "label": "Sensory organ (eye)",  "note": "Synonymous with CAT." },
+    "GAT": { "aa": "Asp", "abbr": "D", "morpheme": "spine",    "label": "Dorsal spine",         "note": "Aspartate — negative charge, ridge-former. Models En/Hh-driven dorsal spine or ridge." },
+    "GAC": { "aa": "Asp", "abbr": "D", "morpheme": "spine",    "label": "Dorsal spine",         "note": "Synonymous with GAT." },
+    "GAA": { "aa": "Glu", "abbr": "E", "morpheme": "ridge",    "label": "Ridge amplifier",      "note": "Glutamate — longer version of Asp. Increases height of adjacent spine." },
+    "GAG": { "aa": "Glu", "abbr": "E", "morpheme": "ridge",    "label": "Ridge amplifier",      "note": "Synonymous with GAA." },
+    "AAA": { "aa": "Lys", "abbr": "K", "morpheme": "claw",     "label": "Claw / talon tip",     "note": "Lysine — long positive chain, terminal hook. Added to active branch tips." },
+    "AAG": { "aa": "Lys", "abbr": "K", "morpheme": "claw",     "label": "Claw / talon tip",     "note": "Synonymous with AAA." },
+    "TCT": { "aa": "Ser", "abbr": "S", "morpheme": "texture",  "label": "Surface texture",      "note": "Serine — hydroxyl group, surface-active. Drives scale / fur / feather texture rendering." },
+    "TCC": { "aa": "Ser", "abbr": "S", "morpheme": "texture",  "label": "Surface texture",      "note": "Synonymous with TCT." },
+    "TCA": { "aa": "Ser", "abbr": "S", "morpheme": "texture",  "note": "Synonymous with TCT." },
+    "TCG": { "aa": "Ser", "abbr": "S", "morpheme": "texture",  "label": "Surface texture",      "note": "Synonymous with TCT." },
+    "AGT": { "aa": "Ser", "abbr": "S", "morpheme": "texture",  "label": "Surface texture",      "note": "Synonymous with TCT." },
+    "AGC": { "aa": "Ser", "abbr": "S", "morpheme": "texture",  "label": "Surface texture",      "note": "Synonymous with TCT." },
+    "ACT": { "aa": "Thr", "abbr": "T", "morpheme": "stripe",   "label": "Color stripe",         "note": "Threonine — hydroxyl group, stripe/banding. Shifts current pigment hue. Models Wnt-driven stripe patterning." },
+    "ACC": { "aa": "Thr", "abbr": "T", "morpheme": "stripe",   "label": "Color stripe",         "note": "Synonymous with ACT." },
+    "ACA": { "aa": "Thr", "abbr": "T", "morpheme": "stripe",   "label": "Color stripe",         "note": "Synonymous with ACT." },
+    "ACG": { "aa": "Thr", "abbr": "T", "morpheme": "stripe",   "label": "Color stripe",         "note": "Synonymous with ACT." },
+    "TGT": { "aa": "Cys", "abbr": "C", "morpheme": "crosslink","label": "Structural crosslink", "note": "Cysteine — disulfide bonds. Stiffens/hardens current region. Models keratinization (horn, carapace, beak, nail)." },
+    "TGC": { "aa": "Cys", "abbr": "C", "morpheme": "crosslink","label": "Structural crosslink", "note": "Synonymous with TGT." },
+    "TAT": { "aa": "Tyr", "abbr": "Y", "morpheme": "pigment",  "label": "Pigment patch",        "note": "Tyrosine — melanin precursor (real melanin biosynthesis pathway). Lays down a pigment patch. Sequential Tyr = denser pigment." },
+    "TAC": { "aa": "Tyr", "abbr": "Y", "morpheme": "pigment",  "label": "Pigment patch",        "note": "Synonymous with TAT." },
+    "AAT": { "aa": "Asn", "abbr": "N", "morpheme": "softTissue","label": "Soft tissue",         "note": "Asparagine — N-glycosylation site, cartilage-like region. Produces soft transparent area." },
+    "AAC": { "aa": "Asn", "abbr": "N", "morpheme": "softTissue","label": "Soft tissue",         "note": "Synonymous with AAT." },
+    "CAA": { "aa": "Gln", "abbr": "Q", "morpheme": "muscle",   "label": "Muscle bulge",         "note": "Glutamine — glutamate amide, muscle fiber. Bulges the current segment." },
+    "CAG": { "aa": "Gln", "abbr": "Q", "morpheme": "muscle",   "label": "Muscle bulge",         "note": "Synonymous with CAA." },
+    "TAA": { "aa": "Stop","abbr": "*", "morpheme": "stop",     "label": "Translation stop",     "note": "Amber stop codon. Ends body plan. Creature truncates here." },
+    "TAG": { "aa": "Stop","abbr": "*", "morpheme": "stop",     "label": "Translation stop",     "note": "Ochre stop codon." },
+    "TGA": { "aa": "Stop","abbr": "*", "morpheme": "stop",     "label": "Translation stop",     "note": "Opal stop codon." }
+  },
+
+  "macros": {
+    "#WING_PAIR":       { "expansion": "TTT GTT TTT",             "description": "Bilateral wing pair. Fin→Branch→Fin. Models Dpp-mediated wing disc duplication." },
+    "#DEWLAP":          { "expansion": "TTT TAT TAT",             "description": "Colorful throat flap. Fin + 2x pigment. Models anole dewlap: flat tissue + melanin." },
+    "#COMPOUND_EYE":    { "expansion": "TGG TGG CAT",             "description": "Insect compound eye. 2x Feature + Sensor. Models Pax6/Dac eye cluster." },
+    "#ANTENNA":         { "expansion": "GGT GGT CGT",             "description": "Flexible antenna. 2x Gly joint + Arg tip. Models antennal development via homothorax." },
+    "#BIG_HORN":        { "expansion": "CGT CGT CGT CGT",         "description": "Large paired horns. 4x Arg. Models RXFP2-mediated horn growth amplification." },
+    "#CURL_HORN":       { "expansion": "CGT GGT CGT GGT CGT",     "description": "Curled spiral horn. Arg-Gly alternating. Joint-breaks create curl geometry." },
+    "#CARAPACE":        { "expansion": "CCG TGT CCG TGT CCG TGT", "description": "Hard shell carapace. Segment-Crosslink alternating. Models exoskeleton keratinization." },
+    "#TAIL":            { "expansion": "GCT GCT GCT TAA",         "description": "Tapered tail ending in STOP. 3x Ala elongation." },
+    "#SPOTTED_COAT":    { "expansion": "TAT GGT TAT GGT TAT",     "description": "Spot pattern. Pigment-Joint alternating creates irregular spot distribution." },
+    "#STRIPED_COAT":    { "expansion": "ACT TAT ACT TAT ACT",     "description": "Striped coat. Stripe-Pigment alternating creates banded pattern." },
+    "#MANE":            { "expansion": "TCT TCT TCT TTG TTG",     "description": "Mane. 3x Texture then 2x Thicken at head region." },
+    "#CREST":           { "expansion": "GAT GAT CGT",             "description": "Head crest. 2x Spine + Horn tip." },
+    "#BIOLUMINESCENT":  { "expansion": "TGG TAT TGG",             "description": "Bioluminescent patch. Feature-Pigment-Feature. Models luciferin/luciferase gene cluster." },
+    "#PROBOSCIS":       { "expansion": "AAA GCT GCT GCT",         "description": "Proboscis / elongated mouth part. Claw base + 3x elongation." },
+    "#DORSAL_FIN":      { "expansion": "GAT GAT TTT",             "description": "Dorsal fin. 2 spines then fin flap." },
+    "#PECTORAL_FIN":    { "expansion": "GTT TTT TTT",             "description": "Paired pectoral fins. Branch + 2x fin." },
+    "#SWIM_BLADDER":    { "expansion": "CAA CAA AAT",             "description": "Buoyancy structure. 2x Muscle + SoftTissue = inflatable chamber visual." },
+    "#EYESPOT":         { "expansion": "TAT TGG TAT",             "description": "Eyespot pattern: ring pigment around feature. Models butterfly/peacock eyespot (optix gene)." },
+    "#PLUMAGE":         { "expansion": "TCT ACT TAT",             "description": "Iridescent plumage. Texture + Stripe hue-shift + Pigment. Models nanostructure-based iridescence." },
+    "#BEAK":            { "expansion": "AAA TGT",                 "description": "Keratinized beak. Claw + Crosslink at head position." },
+    "#WEBBED_FOOT":     { "expansion": "GTT AAT TTT",             "description": "Webbed foot. Branch + SoftTissue + Fin = webbing between digits." },
+    "#SUCTION_CUPS":    { "expansion": "GTT AAT AAT AAT",         "description": "Suction cup appendages. Branch + 3x SoftTissue pads." },
+    "#VENOM_GLAND":     { "expansion": "TGT TGT CAA",             "description": "Venom gland. 2x Crosslink (protein folding) + Muscle (injection mechanism)." },
+    "#ELECTRORECEPTION":{ "expansion": "TGG CAT TGG",             "description": "Electroreceptor organ. Feature-Sensor-Feature. Models ampullae of Lorenzini." },
+    "#LATERAL_LINE":    { "expansion": "TCT CAT TCT",             "description": "Fish lateral line. Texture-Sensor-Texture. Models mechanoreceptor hair cell line." }
+  },
+
+  "bodyPlanTemplates": {
+    "ARTHROPOD_INSECT": {
+      "description": "3-segment insect: head/thorax/abdomen, 3 limb pairs, optional wing pair",
+      "template": "ATG CCG CCG CCG GTT GTT GTT #WING_PAIR #COMPOUND_EYE #ANTENNA TAA",
+      "rules": [
+        "Contiguous Pro count (after ATG) = segment count",
+        "Val count = limb pair count (always bilateral)",
+        "Phe before Val = wing on that segment",
+        "Trp×2 + His = compound eye cluster",
+        "Gly×2 + Arg at head = antenna pair"
+      ]
+    },
+    "ARTHROPOD_CRUSTACEAN": {
+      "description": "Multi-segment crustacean with carapace, multiple limbs, claw pair",
+      "template": "ATG #CARAPACE GTT GTT GTT GTT GTT AAA AAA TCT TAA",
+      "rules": [
+        "Crosslinked segments = hard carapace",
+        "High Val count = more walking legs",
+        "Terminal Lys×2 = major claw pair",
+        "Texture = surface patterning"
+      ]
+    },
+    "VERTEBRATE_QUADRUPED": {
+      "description": "4-limbed land vertebrate: torso, 2 limb pairs, head features",
+      "template": "ATG CCG CCG GTT GTT TTG #BIG_HORN TCT TAT TAA",
+      "rules": [
+        "2 Pro = torso segments",
+        "2 Val = fore + hind limb pairs",
+        "Leu cluster = body mass",
+        "Arg cluster = horn/antler growth",
+        "Texture + Pigment = coat color"
+      ]
+    },
+    "VERTEBRATE_FISH": {
+      "description": "Streamlined fish body with fins along single axis",
+      "template": "ATG CCG TTG TTG #PECTORAL_FIN #DORSAL_FIN TTT CAA TCT ACT TAT TAA",
+      "rules": [
+        "Pro = trunk segment",
+        "Leu = body depth/mass",
+        "Val+Fin = pectoral fins",
+        "Dorsal Asp+Fin = dorsal fin",
+        "Tail Fin = caudal fin",
+        "Muscle = body power",
+        "Texture+Stripe+Pigment = scale color pattern"
+      ]
+    },
+    "VERTEBRATE_BIRD": {
+      "description": "Feathered bipedal bird: wing pair, bipedal legs, beak, plumage",
+      "template": "ATG CCG GTT TTT TTT GTT AAA TCT ACT TAT #CREST TAA",
+      "rules": [
+        "First Val+Fin pair = wings",
+        "Second Val = bipedal legs",
+        "Lys after head = beak",
+        "Texture+Stripe+Pigment = plumage",
+        "Spine at head = crest"
+      ]
+    },
+    "VERTEBRATE_REPTILE": {
+      "description": "4-limbed ectotherm with scales, long body, dragging tail",
+      "template": "ATG CCG CCG GTT GTT #DEWLAP TCT TCT TAA GCT GCT GCT TAA",
+      "rules": [
+        "Multiple Pro = long torso",
+        "2 Val = 4 limbs",
+        "Fin+Pigment at head = dewlap",
+        "Texture = scale pattern",
+        "Post-STOP AAs can be suppressed or read as decorative"
+      ]
+    },
+    "PLANT_FORB": {
+      "description": "Small flowering herb: upright stem, branching, flower",
+      "template": "ATG GCT GCT GCT GTT GTT TAT TAT TCT TGG TAA",
+      "rules": [
+        "Initial Ala chain = stem elongation",
+        "Val = lateral branch points",
+        "Pigment = flower color",
+        "Texture = leaf texture",
+        "Feature = unique flower structure"
+      ]
+    },
+    "PLANT_GRASS": {
+      "description": "Grass: tall stem, leaf blades, seed head",
+      "template": "ATG GCT GCT GCT GCT TTG GAT GAT TTT TCT TAA",
+      "rules": [
+        "Long Ala chain = tall stem",
+        "Leu = stem thickness",
+        "Asp×2 = seed head spikes",
+        "Fin = leaf blade",
+        "Texture = surface wax/pubescence"
+      ]
+    }
+  },
+
+  "crossSpeciesPatterns": {
+    "segmentationClock": {
+      "title": "The Segmentation Clock (Pro = segment)",
+      "gene": "Wnt/Notch oscillator",
+      "rule": "Number of contiguous Pro (P) codons after ATG determines body segment count",
+      "examples": {
+        "Mosquito": "ATG CCG CCG CCG = 3 segments (head+thorax+abdomen)",
+        "Crab": "ATG CCG CCG CCG CCG CCG = 5 segments",
+        "Human vertebra": "~33 Pro-equivalent signals = 33 vertebrae"
+      }
+    },
+    "bilateralSymmetry": {
+      "title": "Bilateral Symmetry Lock (Val = pair)",
+      "gene": "Pitx2 / Nodal laterality pathway",
+      "rule": "Every Val (V) codon ALWAYS produces a bilateral (left+right) pair. No exceptions.",
+      "examples": {
+        "1 Val": "1 limb pair (4-legged insects have 2 Val)",
+        "3 Val": "3 limb pairs (insects: 6-legged)",
+        "0 Val": "No limbs (snake-like)"
+      }
+    },
+    "hoxGradient": {
+      "title": "HOX Positional Identity (position = anatomy)",
+      "gene": "Hox gene anterior-posterior axis",
+      "rule": "Distance from ATG determines anatomical region: early = HEAD, middle = TORSO, late = TAIL",
+      "examples": {
+        "Morpheme 1-2": "Applied to head region",
+        "Morpheme middle": "Applied to torso",
+        "Last before STOP": "Tail / posterior"
+      }
+    },
+    "appendageIdentity": {
+      "title": "Appendage Identity Rule (Val + next = type)",
+      "gene": "Distal-less (Dll) / appendage specifier",
+      "rule": "What codon FOLLOWS Val determines what body part grows on that branch",
+      "examples": {
+        "GTT TTT": "Wing (branch + fin = winged appendage)",
+        "GTT AAA": "Claw foot (branch + claw = toothed appendage)",
+        "GTT CGT": "Spiked limb (branch + horn = armed appendage)",
+        "GTT AAT": "Paddle/flipper (branch + soft tissue = aquatic limb)",
+        "GTT GGT": "Articulated tentacle (branch + joint = flexible appendage)"
+      }
+    },
+    "pigmentCascade": {
+      "title": "Pigmentation Cascade (Tyr-based real melanin pathway)",
+      "gene": "MC1R / TYRP1 / ASIP melanin synthesis",
+      "rule": "Sequence of Tyr (Y) and Thr (T) codons before Tyr determines color output",
+      "examples": {
+        "TAT TAT TAT": "Dense dark eumelanin (black)",
+        "ACT TAT TAT": "Banded phaeomelanin (reddish-brown stripes)",
+        "GGT TAT GGT TAT": "Irregular spots (joint breaks distribute pigment)",
+        "TAT TGG TAT": "Eyespot (pigment ring around unique feature)"
+      }
+    },
+    "testosterone": {
+      "title": "Androgen Amplifier (early Arg = bigger everything)",
+      "gene": "RXFP2 / androgen receptor axis",
+      "rule": "Arg (R) codons in the first 30% of the sequence amplify all subsequent morphemes",
+      "examples": {
+        "CGT CGT early": "Doubled horn size, brighter plumage, heavier body",
+        "CGT CGT late": "Normal horn expression only"
+      }
+    }
+  }
+}

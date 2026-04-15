@@ -260,5 +260,13 @@ function renderOrganism(organismId, scores, svgEl, seq) {
     renderAnimal(scores, svgEl);
   } else if (organismId === 'creature') {
     return renderCreature(seq || '', svgEl);
+  } else if (typeof renderSpecies === 'function') {
+    // ── Delegate all new species to species-renderer.js ──
+    const registry = window.__SPECIES_REGISTRY;
+    const traitDefs = registry?.species?.[organismId]?.traits || {};
+    const normalized = (typeof normalizeScores === 'function')
+      ? normalizeScores(scores, traitDefs)
+      : scores;
+    renderSpecies(organismId, normalized, svgEl, []);
   }
 }

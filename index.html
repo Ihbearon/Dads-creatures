@@ -1,201 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DNA Sandbox — Creature Creator | Real Biology Engine</title>
-  <meta name="description" content="Edit base pairs and watch real genetic traits change in real time. A scientifically grounded genotype-to-phenotype simulation using published GWAS effect sizes." />
-  <link rel="stylesheet" href="css/main.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dad's Creatures — Genomic Species Encyclopedia</title>
+  <meta name="description" content="Explore 20 real species from the G2P genomic dataset. Mutate DNA sequences, watch creatures change in real-time, and design new life with the Genomic Creature Language (GCL)."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" href="css/gallery.css"/>
 </head>
 <body>
 
-<!-- Helix background canvas -->
-<canvas id="helix-canvas" aria-hidden="true"></canvas>
+<!-- ── NAV ─────────────────────────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="index.html">🧬 <span>Dad's</span>Creatures</a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Species</a>
+    <a href="lab.html">DNA Lab</a>
+    <a href="language/index.html">GCL Language</a>
+    <a href="https://github.com/Ihbearon/Dads-creatures" target="_blank">GitHub</a>
+    <a href="lab.html" class="cta">Open Lab →</a>
+  </div>
+</nav>
 
-<!-- Floating SNP tooltip -->
-<div id="snp-tooltip" role="tooltip" aria-live="polite"></div>
+<!-- ── HERO ─────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <p class="hero-eyebrow">G2P Genomic Dataset · Real GWAS Data · Programmatic Evolution</p>
+  <h1>Build Real Creatures<br/>from <em>Real DNA</em></h1>
+  <p>Explore 20 species from the QuantGen G2P repository. Mutate base pairs, watch phenotypes change, and write new life with the Genomic Creature Language — an in-house DNA programming language grounded in real molecular biology.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>20</strong><span>Species</span></div>
+    <div class="hero-stat"><strong>100+</strong><span>Real SNPs</span></div>
+    <div class="hero-stat"><strong>64</strong><span>Coded Codons</span></div>
+    <div class="hero-stat"><strong>25+</strong><span>GCL Macros</span></div>
+    <div class="hero-stat"><strong>6</strong><span>Body Plans</span></div>
+  </div>
+  <div class="hero-actions">
+    <a href="lab.html" class="btn btn-primary">🔬 Open DNA Lab</a>
+    <a href="language/index.html" class="btn btn-secondary">📖 GCL Language Ref</a>
+  </div>
+</section>
 
-<!-- Mutation flash notification -->
-<div id="mutation-flash" role="status" aria-live="polite"></div>
+<!-- ── GCL PROMO STRIP ─────────────────────────────────────────────── -->
+<div class="gcl-strip" style="margin: 0 2rem 2rem; padding: 1.8rem 2rem;">
+  <div>
+    <h2>Introducing the <span>Genomic Creature Language</span> (GCL)</h2>
+    <p>An in-house DNA programming language where every codon has a biological meaning. Write <code style="color:hsl(170,60%,65%);font-size:0.9em">#WING_PAIR</code> and watch wings grow. Chain <code style="color:hsl(170,60%,65%);font-size:0.9em">CGT CGT CGT CGT</code> for massive horns. Design species that have never existed.</p>
+    <br/>
+    <a href="language/index.html" class="btn btn-secondary" style="font-size:0.82rem;padding:0.45rem 1rem">Explore GCL →</a>
+  </div>
+  <div class="gcl-code"><span class="cm">// Design a custom winged lizard</span>
+<span class="kw">ATG</span>               <span class="cm">// init body axis</span>
+<span class="kw">CCG CCG</span>           <span class="cm">// 2 torso segments</span>
+<span class="nt">#WING_PAIR</span>        <span class="cm">// bilateral wings</span>
+<span class="kw">GTT GTT</span>           <span class="cm">// 4 limbs</span>
+<span class="nt">#DEWLAP</span>           <span class="cm">// red throat flap</span>
+<span class="nt">#BIG_HORN</span>         <span class="cm">// 4× Arg = horns</span>
+<span class="kw">TCT TAT</span>           <span class="cm">// scales + pigment</span>
+<span class="kw">TAA</span>               <span class="cm">// STOP</span></div>
+</div>
 
-<div class="app-wrapper">
+<!-- ── FILTER BAR ─────────────────────────────────────────────────── -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All Species</button>
+  <button class="filter-btn" data-filter="insect">🦟 Insects</button>
+  <button class="filter-btn" data-filter="crustacean">🦀 Crustaceans</button>
+  <button class="filter-btn" data-filter="fish">🐟 Fish</button>
+  <button class="filter-btn" data-filter="bird">🦅 Birds</button>
+  <button class="filter-btn" data-filter="reptile">🦎 Reptiles</button>
+  <button class="filter-btn" data-filter="mammal">🐑 Mammals</button>
+  <button class="filter-btn" data-filter="plant">🌿 Plants</button>
+</div>
 
-  <!-- ── Header ─────────────────────────────────────────────────────────── -->
-  <header class="app-header">
-    <div class="header-brand">
-      <div class="brand-icon">🧬</div>
-      <div>
-        <div class="brand-title">DNA Sandbox</div>
-        <div class="brand-subtitle">Real Biology Engine · Creature Creator</div>
+<!-- ── SPECIES GRID ───────────────────────────────────────────────── -->
+<section class="gallery-section">
+  <p class="section-heading">// 20 species · G2P genomic repository · real GWAS data</p>
+  <div class="species-grid" id="speciesGrid">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<!-- ── PATTERN SECTION ───────────────────────────────────────────── -->
+<section class="patterns-section">
+  <p class="section-heading">// six universal patterns found across all 20 species</p>
+  <div class="pattern-cards">
+    <div class="pattern-card">
+      <div class="pattern-number">PATTERN 01</div>
+      <h3>The Segmentation Clock</h3>
+      <p>Proline (Pro/P) codons control body segment count via the Wnt/Notch oscillator.</p>
+      <code>CCG CCG CCG = 3 segments</code>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-number">PATTERN 02</div>
+      <h3>Bilateral Symmetry Lock</h3>
+      <p>Every Val (V/GTT) codon always produces a left-right pair — never a single appendage.</p>
+      <code>GTT GTT GTT = 3 limb pairs</code>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-number">PATTERN 03</div>
+      <h3>HOX Positional Identity</h3>
+      <p>Position in the sequence determines anatomy: early = head, middle = torso, late = tail.</p>
+      <code>ATG [HEAD] [TORSO] [TAIL] TAA</code>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-number">PATTERN 04</div>
+      <h3>Appendage Identity Rule</h3>
+      <p>What follows Val (V) determines what grows on that branch (Distal-less gene logic).</p>
+      <code>GTT TTT = wing · GTT AAA = claw</code>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-number">PATTERN 05</div>
+      <h3>Pigmentation Cascade</h3>
+      <p>Tyr (Y) and Thr (T) sequence order determines color — mirrors real MC1R/TYRP1 pathway.</p>
+      <code>ACT TAT = stripes · TAT GGT TAT = spots</code>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-number">PATTERN 06</div>
+      <h3>Androgen Amplifier</h3>
+      <p>Early Arg (R/CGT) codons amplify all subsequent morphemes — models RXFP2 androgen axis.</p>
+      <code>CGT CGT early = bigger horns/plumage</code>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────── -->
+<footer>
+  <p>Built with real GWAS data from the <a href="https://github.com/QuantGen/G2P-Datasets" target="_blank">QuantGen G2P Datasets</a> repository.
+  Scientific estimates noted where β values are inferred from comparative genomics.
+  <a href="https://github.com/Ihbearon/Dads-creatures" target="_blank">View source on GitHub</a>.</p>
+</footer>
+
+<script>
+// ── Species metadata for gallery cards ──────────────────────────────
+const SPECIES_META = [
+  { id:'mosquito',       name:'Yellow Fever Mosquito', sci:'Aedes aegypti',          icon:'🦟', type:'insect',     g2p:'00001', traits:['Wing Venation','Proboscis','Body Size'] },
+  { id:'green-anole',    name:'Green Anole',           sci:'Anolis carolinensis',    icon:'🦎', type:'reptile',    g2p:'00002', traits:['Dewlap Color','Limb Length','Toe Pads'] },
+  { id:'blue-crab',      name:'Blue Crab',             sci:'Callinectes sapidus',   icon:'🦀', type:'crustacean', g2p:'00007', traits:['Carapace Width','Chela Size','Blue Color'] },
+  { id:'damselfly',      name:'Dainty Damselfly',      sci:'Coenagrion scitulum',   icon:'🪲', type:'insect',     g2p:'00013', traits:['Wing Spots','Wing Length','Body Blue'] },
+  { id:'coho-salmon',    name:'Coho Salmon',           sci:'Oncorhynchus kisutch',  icon:'🐟', type:'fish',       g2p:'00027', traits:['Body Length','Spawn Color','Jaw Hook'] },
+  { id:'arctic-charr',   name:'Arctic Charr',          sci:'Salvelinus alpinus',    icon:'🐠', type:'fish',       g2p:'00059', traits:['Spot Color','Spot Count','Body Depth'] },
+  { id:'rock-lobster',   name:'Eastern Rock Lobster',  sci:'Sagmariasus verreauxi', icon:'🦞', type:'crustacean', g2p:'00060', traits:['Antenna Length','Carapace','Coloration'] },
+  { id:'green-peafowl',  name:'Green Peafowl',         sci:'Pavo muticus',          icon:'🦚', type:'bird',       g2p:'00081', traits:['Train Length','Eyespots','Iridescence'] },
+  { id:'bighorn-sheep',  name:'Bighorn Sheep',         sci:'Ovis canadensis',       icon:'🐏', type:'mammal',     g2p:'00083', traits:['Horn Circumference','Horn Curl','Body Mass'] },
+  { id:'manakin',        name:'White-collar Manakin',  sci:'Manacus candei',        icon:'🐦', type:'bird',       g2p:'00088', traits:['Collar Color','Collar Width','Wing Snap'] },
+  { id:'prairie-falcon', name:'Prairie Falcon',        sci:'Falco mexicanus',       icon:'🦅', type:'bird',       g2p:'00090', traits:['Wingspan','Malar Stripe','Talon Length'] },
+  { id:'soay-sheep',     name:'Soay Sheep',            sci:'Ovis aries (Soay)',     icon:'🐑', type:'mammal',     g2p:'00092', traits:['Coat Color','Horn Length','Body Size'] },
+  { id:'cattle',         name:'Domestic Cattle',       sci:'Bos taurus',            icon:'🐄', type:'mammal',     g2p:'00005', traits:['Coat Color','Horn Status','Body Mass'] },
+  { id:'camel',          name:'Dromedary Camel',       sci:'Camelus dromedarius',   icon:'🐪', type:'mammal',     g2p:'00008', traits:['Hump Volume','Neck Length','Leg Length'] },
+  { id:'labrador',       name:'Labrador Retriever',    sci:'Canis lupus familiaris',icon:'🐕', type:'mammal',     g2p:'00009', traits:['Coat Color','Body Mass','Coat Length'] },
+  { id:'goat',           name:'Domestic Goat',         sci:'Capra hircus',          icon:'🐐', type:'mammal',     g2p:'00011', traits:['Horn Style','Beard Length','Coat Pattern'] },
+  { id:'orange-roughy',  name:'Orange Roughy',         sci:'Hoplostethus atlanticus',icon:'🐡',type:'fish',       g2p:'00042', traits:['Body Color','Spine Count','Lifespan'] },
+  { id:'sorghum',        name:'Sorghum',               sci:'Sorghum bicolor',       icon:'🌾', type:'plant',      g2p:'00066', traits:['Plant Height','Panicle Size','Grain Color'] },
+  { id:'arabidopsis',    name:'Thale Cress',           sci:'Arabidopsis thaliana',  icon:'🌱', type:'plant',      g2p:'00003', traits:['Flowering Time','Rosette Size','Trichomes'] },
+  { id:'grass-plant',    name:'Annual Ryegrass',       sci:'Lolium perenne',        icon:'🌿', type:'plant',      g2p:'00087', traits:['Chlorophyll','Leaf Width','Tillering'] },
+];
+
+const TYPE_TAG = {
+  insect:'tag-insect', crustacean:'tag-crustacean', fish:'tag-fish',
+  bird:'tag-bird', reptile:'tag-reptile', mammal:'tag-mammal', plant:'tag-plant'
+};
+
+function buildCard(sp) {
+  const link   = `lab.html?species=${sp.id}`;
+  const tagCls = TYPE_TAG[sp.type] || '';
+  const traits = sp.traits.map(t => `<span style="font-size:0.68rem;color:var(--muted)">${t}</span>`).join(' · ');
+  return `
+  <a class="species-card" href="${link}" data-type="${sp.type}" id="card-${sp.id}" aria-label="Open ${sp.name} lab">
+    <div class="card-svg-wrap">
+      <svg viewBox="0 0 200 180" id="svg-${sp.id}"></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-icon-name">
+        <span class="card-icon">${sp.icon}</span>
+        <span class="card-name">${sp.name}</span>
       </div>
+      <div class="card-sci">${sp.sci}</div>
+      <div class="card-tags">
+        <span class="tag ${tagCls}">${sp.type}</span>
+        <span class="tag tag-g2p">G2P-${sp.g2p}</span>
+      </div>
+      <div style="font-size:0.72rem;color:var(--muted)">${traits}</div>
     </div>
+    <div class="card-open" style="padding:0.5rem 0.85rem">Open Lab <span>→</span></div>
+  </a>`;
+}
 
-    <div class="org-switcher" role="group" aria-label="Organism selector">
-      <button class="org-btn active" id="btn-plant" data-organism="plant">
-        <span class="org-icon">🌿</span>
-        <span>Grass Plant</span>
-      </button>
-      <button class="org-btn" id="btn-animal" data-organism="animal">
-        <span class="org-icon">🐑</span>
-        <span>Soay Sheep</span>
-      </button>
-      <button class="org-btn" id="btn-creature" data-organism="creature">
-        <span class="org-icon">🦎</span>
-        <span>Free Creature</span>
-      </button>
-    </div>
+// Render grid
+const grid = document.getElementById('speciesGrid');
+grid.innerHTML = SPECIES_META.map(buildCard).join('');
 
-    <div id="snp-count-badge" aria-live="polite">Loading…</div>
-  </header>
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.species-card').forEach(card => {
+      const show = filter === 'all' || card.dataset.type === filter;
+      card.style.display = show ? 'flex' : 'none';
+    });
+  });
+});
 
-  <!-- ── Main grid ──────────────────────────────────────────────────────── -->
-  <main class="main-grid">
+// Render species SVG thumbnails after load
+window.addEventListener('load', () => {
+  // Load all renderer scripts then render thumbnails
+  const scripts = [
+    'js/codon-table.js','js/gene-parser.js','js/snp-scanner.js',
+    'js/polygenic-score.js','js/creature-builder.js',
+    'js/renderers/render-insect.js','js/renderers/render-fish.js',
+    'js/renderers/render-bird.js','js/renderers/render-reptile.js',
+    'js/renderers/render-mammal.js','js/renderers/render-plant.js',
+    'js/species-renderer.js'
+  ];
 
-    <!-- Left column: sequence editor + panels -->
-    <div class="left-col">
+  let loaded = 0;
+  for (const src of scripts) {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = () => {
+      loaded++;
+      if (loaded === scripts.length) renderThumbnails();
+    };
+    document.body.appendChild(s);
+  }
 
-      <!-- Sequence Editor -->
-      <section class="glass-card seq-editor-card" aria-labelledby="seq-editor-title">
-        <div class="card-header">
-          <h1 class="card-title" id="seq-editor-title">
-            <span class="card-title-dot"></span>
-            Sequence Editor
-          </h1>
-          <span style="font-size:11px;color:var(--text-muted)">A/T/G/C only • SNP sites highlighted</span>
-        </div>
-        <div class="card-body">
-          <div class="seq-textarea-wrap">
-            <textarea
-              id="seq-input"
-              aria-label="DNA sequence input — type A, T, G, or C"
-              placeholder="Type or paste a DNA sequence: ATGCCCGTAGCT…"
-              spellcheck="false"
-              autocomplete="off"
-              autocorrect="off"
-              autocapitalize="characters"
-            ></textarea>
-          </div>
-
-          <!-- Mutation toolbar -->
-          <div class="mutation-toolbar">
-            <label>Mutate:</label>
-            <button class="mut-btn" id="btn-random-mut" data-mutate="random"
-                    title="Inject a random point mutation">⚡ Random mutation</button>
-            <button class="mut-btn highlight" id="btn-snp-alt" data-mutate="snp-alt"
-                    title="Flip a random SNP site to its alt allele">🎲 Random SNP alt</button>
-            <button class="mut-btn highlight" id="btn-all-alt" data-mutate="all-alt"
-                    title="Set ALL SNP sites to their alt alleles">💥 Max all traits</button>
-            <button class="mut-btn danger" id="btn-reset" data-mutate="reset"
-                    title="Reset to reference sequence">↺ Reset</button>
-          </div>
-
-          <!-- Colorized sequence display -->
-          <div class="seq-display-wrap" aria-label="Colorized base view with SNP hotspots">
-            <div id="seq-display" role="region"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Codon Strip -->
-      <section class="glass-card" aria-labelledby="codon-strip-title">
-        <div class="card-header">
-          <h2 class="card-title" id="codon-strip-title">
-            <span class="card-title-dot" style="background:var(--amber);box-shadow:0 0 8px var(--amber)"></span>
-            Codon Translation
-          </h2>
-          <span style="font-size:11px;color:var(--text-muted)">NCBI Standard Genetic Code · Table 1</span>
-        </div>
-        <div class="codon-strip-wrap">
-          <div id="codon-strip" role="list" aria-label="Codon to amino acid translation"></div>
-        </div>
-      </section>
-
-      <!-- Gene Finder -->
-      <section class="glass-card" aria-labelledby="gene-finder-title">
-        <div class="card-header">
-          <h2 class="card-title" id="gene-finder-title">
-            <span class="card-title-dot" style="background:var(--amber);box-shadow:0 0 8px var(--amber)"></span>
-            ORF / Gene Finder
-          </h2>
-          <span style="font-size:11px;color:var(--text-muted)">ATG → stop codon · all 3 frames</span>
-        </div>
-        <div class="gene-panel-wrap">
-          <div id="gene-list" role="list" aria-label="Open reading frames detected in sequence"></div>
-        </div>
-      </section>
-
-    </div><!-- /left-col -->
-
-    <!-- Right column: organism + traits + SNP inspector -->
-    <div class="right-col">
-
-      <!-- Organism renderer card -->
-      <section class="glass-card" id="organism-card" aria-labelledby="organism-card-title">
-        <div class="organism-info">
-          <h2 id="organism-name">Grass Plant</h2>
-          <div class="sci-name" id="organism-sci">Poaceae (theoretical)</div>
-          <div class="org-desc" id="organism-desc">Loading organism data…</div>
-        </div>
-        <div class="svg-canvas-wrap">
-          <svg id="organism-svg" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg"
-               role="img" aria-label="Live organism phenotype render based on your DNA sequence">
-          </svg>
-        </div>
-      </section>
-
-      <!-- Trait scoreboard -->
-      <section class="glass-card" aria-labelledby="trait-board-title">
-        <div class="card-header">
-          <h2 class="card-title" id="trait-board-title">
-            <span class="card-title-dot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></span>
-            Polygenic Trait Scores
-          </h2>
-        </div>
-        <div class="trait-board-wrap">
-          <div id="trait-board" role="list" aria-label="Trait scores computed from polygenic scoring"></div>
-        </div>
-      </section>
-
-      <!-- SNP Inspector -->
-      <section class="glass-card" aria-labelledby="snp-inspector-title">
-        <div class="card-header">
-          <h2 class="card-title" id="snp-inspector-title">
-            <span class="card-title-dot" style="background:var(--rose);box-shadow:0 0 8px var(--rose)"></span>
-            SNP Inspector
-          </h2>
-          <span style="font-size:11px;color:var(--text-muted)">Published GWAS variants</span>
-        </div>
-        <div class="snp-panel-wrap">
-          <div id="snp-list" role="list" aria-label="Detected SNPs with effect sizes and citations"></div>
-        </div>
-      </section>
-
-    </div><!-- /right-col -->
-
-  </main><!-- /main-grid -->
-
-  <!-- ── Footer ─────────────────────────────────────────────────────────── -->
-  <footer class="app-footer">
-    <div class="footer-text">
-      SNP effect sizes sourced from peer-reviewed literature:
-      <a href="https://www.ncbi.nlm.nih.gov/snp/" target="_blank">NCBI dbSNP</a> ·
-      <a href="https://www.ebi.ac.uk/gwas/" target="_blank">NHGRI-EBI GWAS Catalog</a> ·
-      <a href="https://doi.org/10.1126/science.1197170" target="_blank">Johnston et al. 2011 (RXFP2 horns)</a> ·
-      <a href="https://doi.org/10.1534/genetics.106.067447" target="_blank">Gratten et al. 2007 (MC1R coat)</a>
-    </div>
-    <div class="footer-badge">Pure HTML/CSS/JS · Zero dependencies</div>
-  </footer>
-
-</div><!-- /app-wrapper -->
-
-<!-- JS modules (load order matters) -->
-<script src="js/codon-table.js"></script>
-<script src="js/gene-parser.js"></script>
-<script src="js/snp-scanner.js"></script>
-<script src="js/polygenic-score.js"></script>
-<script src="js/creature-builder.js"></script>
-<script src="js/renderer.js"></script>
-<script src="js/app.js"></script>
-
+  function renderThumbnails() {
+    // Load species registry then render each card
+    fetch('data/species-registry.json')
+      .then(r => r.json())
+      .then(registry => {
+        for (const sp of SPECIES_META) {
+          const svgEl   = document.getElementById(`svg-${sp.id}`);
+          const specDef = registry.species[sp.id];
+          if (!svgEl || !specDef) continue;
+          // Build baseline scores (all traits at their baseline)
+          const baseScores = {};
+          for (const [k, def] of Object.entries(specDef.traits || {})) {
+            const range = (def.max - def.min) || 1;
+            const norm  = ((def.baseline - def.min) / range) * 100;
+            baseScores[k] = { normalizedScore: norm, traitValue: def.baseline };
+          }
+          try {
+            renderSpecies(sp.id, baseScores, svgEl, []);
+          } catch(e) {
+            svgEl.innerHTML = `<text x="100" y="90" text-anchor="middle" fill="#666" font-size="24">${sp.icon}</text>`;
+          }
+        }
+      })
+      .catch(() => {
+        // fallback: just show emoji
+        for (const sp of SPECIES_META) {
+          const svgEl = document.getElementById(`svg-${sp.id}`);
+          if (svgEl) svgEl.innerHTML = `<text x="100" y="90" text-anchor="middle" fill="#aaa" font-size="48">${sp.icon}</text>`;
+        }
+      });
+  }
+});
+</script>
 </body>
 </html>
