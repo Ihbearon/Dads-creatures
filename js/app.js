@@ -207,10 +207,78 @@ function renderTraitScoreboard(scores) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Creature scoreboard — shows morpheme type counts instead of PGS
+// ─────────────────────────────────────────────────────────────────────────────
+
+const MORPHEME_DISPLAY = {
+  segment:   { label: 'Body Segments',  icon: '🔲', color: 'var(--teal)' },
+  branch:    { label: 'Limb Pairs',     icon: '🦾', color: 'var(--violet)' },
+  fin:       { label: 'Fins / Wings',   icon: '🐟', color: 'var(--amber)' },
+  horn:      { label: 'Horns',          icon: '🐏', color: 'var(--rose)' },
+  spine:     { label: 'Dorsal Spines',  icon: '📌', color: 'var(--rose)' },
+  sensor:    { label: 'Sensory Organs', icon: '👁️', color: '#7dd3fc' },
+  feature:   { label: 'Special Features', icon: '✨', color: '#d8b4fe' },
+  pigment:   { label: 'Pigment Patches', icon: '🎨', color: 'var(--amber)' },
+};
+
+function renderCreatureScoreboard(meta, traitConfig) {
+  const board = document.getElementById('trait-board');
+  const counts = summarizeMorphemes(meta.morphemes);
+
+  // Count limb pairs (each branch creates 2 limbs, count branch morphemes)
+  const rows = Object.entries(MORPHEME_DISPLAY).map(([type, display]) => {
+    const count = counts[type] || 0;
+    const maxCount = type === 'segment' ? 15 : type === 'branch' ? 6 : 8;
+    const pct = Math.min(100, Math.round((count / maxCount) * 100));
+    const cls = pct >= 67 ? 'high' : pct >= 33 ? 'medium' : 'low';
+
+    return `
+      <div class="trait-row">
+        <div class="trait-header">
+          <span class="trait-icon">${display.icon}</span>
+          <span class="trait-label">${display.label}</span>
+          <span class="trait-value">${count}</span>
+        </div>
+        <div class="trait-bar-wrap">
+          <div class="trait-bar" style="--bar-fill:${pct}%">
+            <div class="trait-bar-fill ${cls}" style="background:${display.color}"></div>
+          </div>
+          <span class="trait-pct">${count}</span>
+        </div>
+        <div class="trait-contributors">
+          ${count > 0 ? `${count} ${display.label.toLowerCase()} encoded in AA sequence` : 'Not present in current sequence'}
+        </div>
+      </div>
+    `;
+  });
+
+  // ORF length row
+  const orfPct = Math.min(100, Math.round((meta.orfLength / 40) * 100));
+  rows.push(`
+    <div class="trait-row">
+      <div class="trait-header">
+        <span class="trait-icon">🧬</span>
+        <span class="trait-label">ORF Length</span>
+        <span class="trait-value">${meta.orfLength} aa</span>
+      </div>
+      <div class="trait-bar-wrap">
+        <div class="trait-bar" style="--bar-fill:${orfPct}%">
+          <div class="trait-bar-fill ${orfPct >= 67 ? 'high' : orfPct >= 33 ? 'medium' : 'low'}"></div>
+        </div>
+        <span class="trait-pct">${meta.orfLength} aa</span>
+      </div>
+      <div class="trait-contributors">Amino acids translated from longest ORF</div>
+    </div>
+  `);
+
+  board.innerHTML = rows.join('');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Glow effect on SVG card based on dominant trait
 // ─────────────────────────────────────────────────────────────────────────────
 
-function updateOrganismGlow(scores, organismId) {
+function updateOrganismGlow(scores, organismId, creatureMeta) {
   const card = document.getElementById('organism-card');
 
   if (organismId === 'plant') {
@@ -222,6 +290,16 @@ function updateOrganismGlow(scores, organismId) {
       card.style.setProperty('--glow-color', 'rgba(34, 197, 94, 0.4)');
     } else {
       card.style.setProperty('--glow-color', 'rgba(234, 179, 8, 0.35)');
+    }
+  } else if (organismId === 'creature') {
+    // Glow color cycles based on morpheme complexity
+    const morphCount = creatureMeta?.morphemes?.length || 0;
+    if (morphCount > 20) {
+      card.style.setProperty('--glow-color', 'rgba(139, 92, 246, 0.5)');  // violet — complex creature
+    } else if (morphCount > 10) {
+      card.style.setProperty('--glow-color', 'rgba(20, 184, 166, 0.45)'); // teal — medium
+    } else {
+      card.style.setProperty('--glow-color', 'rgba(234, 179, 8, 0.35)');  // amber — simple
     }
   } else {
     const coat = scores.coatColor?.normalizedScore ?? 70;
@@ -242,14 +320,17 @@ function updateOrganismGlow(scores, organismId) {
 function runPipeline() {
   const seq = state.sequence;
   const organism = state.organisms[state.currentOrganism];
-  const snpList = state.snpRegistry[state.currentOrganism];
+  const isCreature = state.currentOrganism === 'creature';
+
+  // For plant/animal: use SNP-based pipeline. For creature: skip SNPs (no registry).
+  const snpList = isCreature ? [] : (state.snpRegistry[state.currentOrganism] || []);
   const snpPositionMap = buildSNPPositionMap(snpList);
 
-  // 1. Scan for SNPs
+  // 1. Scan for SNPs (empty for creature)
   const detectedSNPs = scanForSNPs(seq, snpList);
 
-  // 2. Compute polygenic scores
-  const scores = computePolygenicScores(detectedSNPs, organism.traits);
+  // 2. Compute polygenic scores (empty for creature)
+  const scores = isCreature ? {} : computePolygenicScores(detectedSNPs, organism.traits);
 
   // 3. Render sequence editor
   renderSequenceEditor(seq, snpPositionMap, detectedSNPs);
@@ -260,22 +341,31 @@ function runPipeline() {
   // 5. Render gene finder
   renderGeneFinder(seq);
 
-  // 6. Render SNP inspector
+  // 6. Render SNP inspector (empty panel for creature mode)
   renderSNPInspector(detectedSNPs);
 
-  // 7. Render trait scoreboard
-  renderTraitScoreboard(scores);
-
-  // 8. Render organism SVG
+  // 7. Render organism SVG — creature passes the raw sequence
   const svgEl = document.getElementById('organism-svg');
-  renderOrganism(state.currentOrganism, scores, svgEl);
+  const creatureMeta = renderOrganism(state.currentOrganism, scores, svgEl, seq);
+
+  // 8. Render trait scoreboard
+  if (isCreature && creatureMeta) {
+    renderCreatureScoreboard(creatureMeta, organism.traits);
+  } else {
+    renderTraitScoreboard(scores);
+  }
 
   // 9. Update card glow
-  updateOrganismGlow(scores, state.currentOrganism);
+  updateOrganismGlow(scores, state.currentOrganism, creatureMeta);
 
   // 10. Update stats badge
-  const altCount = detectedSNPs.filter(s => s.isAlt).length;
-  document.getElementById('snp-count-badge').textContent = `${altCount} alt allele${altCount !== 1 ? 's' : ''} active`;
+  if (isCreature && creatureMeta) {
+    document.getElementById('snp-count-badge').textContent =
+      `${creatureMeta.orfLength} amino acids · ${creatureMeta.morphemes.length} morphemes`;
+  } else {
+    const altCount = detectedSNPs.filter(s => s.isAlt).length;
+    document.getElementById('snp-count-badge').textContent = `${altCount} alt allele${altCount !== 1 ? 's' : ''} active`;
+  }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

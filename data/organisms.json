@@ -27,6 +27,20 @@
         "bodySize": { "label": "Body Size", "unit": "kg", "min": 15, "max": 45, "baseline": 28, "icon": "⚖️" }
       },
       "baseSequence": "ATGCCTGTAGCTAAGCTTGCAATGCGGCTTAAGCATGCAATGCTTGGCAAAGTAGCTTAAGCAGCTTGCAATGCGGCTTAAGCGCATGCAATGCTTGGCAAA"
+    },
+    "creature": {
+      "id": "creature",
+      "name": "Free Creature",
+      "scientificName": "Forma libera (procedural)",
+      "description": "A fully procedural organism whose body plan — segments, limbs, fins, spines, eyes, horns — emerges directly from the amino acid sequence encoded by your DNA. Every missense mutation changes the shape. Silent mutations don't.",
+      "icon": "🦎",
+      "traits": {
+        "segments":  { "label": "Body Segments",   "unit": "count", "min": 0, "max": 20,  "baseline": 4,  "icon": "🔲" },
+        "limbs":     { "label": "Limb Pairs",       "unit": "pairs", "min": 0, "max": 8,   "baseline": 2,  "icon": "🦾" },
+        "appendages":{ "label": "Appendages",       "unit": "count", "min": 0, "max": 12,  "baseline": 2,  "icon": "📌" },
+        "orfLength": { "label": "ORF Length",        "unit": "aa",    "min": 0, "max": 60,  "baseline": 10, "icon": "🧬" }
+      },
+      "baseSequence": "ATGGGCCCGAAGCTTGCAATGCGGCTTCGTGCAATGCTTGGCAAAGTAGCTTAAGCAGCTTGCAATGCGGCTTAGCGCATGCAATGCTTGGCAAA"
     }
   }
 }

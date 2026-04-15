@@ -247,14 +247,18 @@ function renderAnimal(scores, svgEl) {
 
 /**
  * Render the organism SVG based on current organism type and trait scores.
- * @param {string} organismId - 'plant' | 'animal'
- * @param {Object} scores     - Output from computePolygenicScores()
+ * @param {string} organismId - 'plant' | 'animal' | 'creature'
+ * @param {Object} scores     - Output from computePolygenicScores() (used for plant/animal)
  * @param {HTMLElement} svgEl - The <svg> element to render into
+ * @param {string} [seq]      - Raw DNA sequence (required for 'creature' mode)
+ * @returns {Object|undefined} Build metadata for creature mode
  */
-function renderOrganism(organismId, scores, svgEl) {
+function renderOrganism(organismId, scores, svgEl, seq) {
   if (organismId === 'plant') {
     renderPlant(scores, svgEl);
   } else if (organismId === 'animal') {
     renderAnimal(scores, svgEl);
+  } else if (organismId === 'creature') {
+    return renderCreature(seq || '', svgEl);
   }
 }
